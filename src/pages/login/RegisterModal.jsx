@@ -1,14 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import registerUser from "../../redux/actions/registerActions";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useState } from "react";
+import { registerUser } from "./../../redux/actions/authActions";
 
 export default function RegisterModal(props) {
     const { modalToggle, setModalOpen } = props;
-    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
+    const loading = useSelector((state) => state.authState.loading);
+    // const authState = useSelector((state) => state.authState);
     const {
         register,
         handleSubmit,
@@ -17,16 +16,10 @@ export default function RegisterModal(props) {
         reset,
     } = useForm();
     const onSubmit = (data) => {
-        setLoading(true);
         dispatch(registerUser(data));
         reset();
+        setModalOpen();
     };
-    const reg = useSelector((state) => state.regUser);
-    // useEffect(() => {
-    //     reg.length
-    //         ? setModalOpen(false) && setLoading(false)
-    //         : setModalOpen(true);
-    // }, [reg]);
 
     return (
         <div>

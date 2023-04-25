@@ -1,22 +1,27 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import RegisterModal from "./RegisterModal";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+// import Swal from "sweetalert2";
+import { loginWithEmail } from "../../redux/actions/authActions";
 
 export default function Login() {
     const [modalOpen, setModalOpen] = useState(false);
+    const dispatch = useDispatch();
     const {
         register,
+        reset,
         handleSubmit,
         formState: { errors },
     } = useForm();
-    const onSubmit = (data) => console.log(data);
+    const onSubmit = (data) => {
+        dispatch(loginWithEmail(data)); //data: {email, password}
+        reset();
+    };
     const toggleModal = () => {
         setModalOpen(!modalOpen);
     };
-    console.log(modalOpen);
-    const user = useSelector((state) => state.regUser);
-    console.log(user);
+
     return (
         <>
             <div className="container mx-auto">

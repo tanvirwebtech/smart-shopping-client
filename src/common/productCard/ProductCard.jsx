@@ -6,7 +6,7 @@ export default function ProductCard(props) {
     const { product } = props;
     const dispatch = useDispatch();
     const cartProduct = useSelector((state) => state.cart);
-    console.log(cartProduct);
+
     return (
         <div className="product-card border m-2">
             <div className="product-wrapper">

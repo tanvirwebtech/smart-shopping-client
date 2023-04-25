@@ -1,17 +1,20 @@
-import axios from "axios";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
 import auth from "../../firebase/init.firebase";
 
-const registerUser = (userData) => {
-    console.log(userData);
+export const registerUser = (userData) => {
     return (dispatch) => {
+        dispatch({
+            type: "REG_PENDING",
+        });
         createUserWithEmailAndPassword(
             auth,
             userData.email,
             userData.confirm_pass
         )
             .then((userCredential) => {
-                // Signed in
                 dispatch({
                     type: "REG_SUCCESS",
                     payload: userCredential.user,
@@ -25,7 +28,29 @@ const registerUser = (userData) => {
             });
     };
 };
-export default registerUser;
+
+// LOGIN WITH EMAIL PASS //
+
+export const loginWithEmail = (userData) => {
+    return (dispatch) => {
+        dispatch({
+            type: "REG_PENDING",
+        });
+        signInWithEmailAndPassword(auth, userData.email, userData.password)
+            .then((userCredential) => {
+                dispatch({
+                    type: "REG_SUCCESS",
+                    payload: userCredential.user,
+                });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: "REG_FAIL",
+                    payload: error.message,
+                });
+            });
+    };
+};
 
 // axios
 //     .post("http://localhost:5000/registerUser", userData)

@@ -6,6 +6,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import store from "./redux/store";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
