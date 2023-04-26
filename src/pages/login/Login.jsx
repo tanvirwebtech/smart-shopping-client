@@ -15,7 +15,7 @@ export default function Login() {
         formState: { errors },
     } = useForm();
     const onSubmit = (data) => {
-        dispatch(loginWithEmail(data)); //data: {email, password}
+        dispatch(loginWithEmail(data)); //data: {email, loginPassword}
         reset();
     };
     const toggleModal = () => {
@@ -66,7 +66,7 @@ export default function Login() {
                                         type="password"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-slate-300 dark:text-white dark:focus:ring-primaryYellow dark:focus:border-primaryYellow"
                                         placeholder="******"
-                                        {...register("password", {
+                                        {...register("loginPassword", {
                                             required: true,
                                         })}
                                     />

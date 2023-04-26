@@ -131,7 +131,7 @@ export default function RegisterModal(props) {
                                 </div>
                                 <div>
                                     <label
-                                        for="password"
+                                        for="confirmPassword"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                     >
                                         Confirm password
@@ -139,7 +139,7 @@ export default function RegisterModal(props) {
                                     <input
                                         type="password"
                                         name="password"
-                                        id="password"
+                                        id="confirmPassword"
                                         placeholder="••••••••"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         {...register("confirm_pass", {

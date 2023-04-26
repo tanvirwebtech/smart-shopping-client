@@ -1,13 +1,15 @@
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signOut,
 } from "firebase/auth";
 import auth from "../../firebase/init.firebase";
 
+// REGISTER WITH EMAIL AND PASS
 export const registerUser = (userData) => {
     return (dispatch) => {
         dispatch({
-            type: "REG_PENDING",
+            type: "AUTH_PENDING",
         });
         createUserWithEmailAndPassword(
             auth,
@@ -34,18 +36,36 @@ export const registerUser = (userData) => {
 export const loginWithEmail = (userData) => {
     return (dispatch) => {
         dispatch({
-            type: "REG_PENDING",
+            type: "AUTH_PENDING",
         });
-        signInWithEmailAndPassword(auth, userData.email, userData.password)
+        signInWithEmailAndPassword(auth, userData.email, userData.loginPassword)
             .then((userCredential) => {
                 dispatch({
-                    type: "REG_SUCCESS",
+                    type: "LOGIN_SUCCESS",
                     payload: userCredential.user,
                 });
             })
             .catch((error) => {
                 dispatch({
-                    type: "REG_FAIL",
+                    type: "LOGIN_FAILED",
+                    payload: error.message,
+                });
+            });
+    };
+};
+
+// LOG OUT
+export const logout = () => {
+    return (dispatch) => {
+        signOut(auth)
+            .then(() => {
+                dispatch({
+                    type: "LOGOUT",
+                });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: "LOGOUT_FAIL",
                     payload: error.message,
                 });
             });

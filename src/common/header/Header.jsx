@@ -2,15 +2,22 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo3.png";
 import SearchBox from "./headerComponents/SearchBox";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/actions/authActions";
 export default function Header() {
     const [navToggle, setNavToggle] = useState(false);
-    const handleNavToggle = () => {
-        setNavToggle(!navToggle);
-        console.log(navToggle);
-    };
+    const [userOption, setUserOption] = useState(false);
     const authState = useSelector((state) => state.authState);
     const cart = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
+
+    const handleNavToggle = () => {
+        setNavToggle(!navToggle);
+    };
+    const handleUserOption = () => {
+        setUserOption(!userOption);
+        console.log(userOption);
+    };
     return (
         <div>
             <nav className="bg-siteGray-100 border-b border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-700 fixed top-0 w-full z-50">
@@ -70,30 +77,36 @@ export default function Header() {
                                     />
                                 </svg>
                             </li>
-                            <li className="font-sans p-1 md:inline-block lg:mt-0 ml-2 align-middle ">
-                                {/* User Icon */}
-                                {authState.user ? (
-                                    <Link to="/">
-                                        <svg
-                                            className={
-                                                "w-4 sm:w-5 md:w-6 text-primaryYellow"
-                                            }
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
+                            <li className="font-sans p-1 md:inline-block lg:mt-0 ml-2 align-middle relative">
+                                <ul
+                                    className={`${
+                                        authState.user && userOption
+                                            ? "absolute right-4 top-8"
+                                            : "hidden absolute right-4 top-8"
+                                    }`}
+                                >
+                                    <li className="my-1 py-2 px-4 bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300">
+                                        <Link to={"/"}>
+                                            <button type="button">
+                                                Profile
+                                            </button>
+                                        </Link>
+                                    </li>
+                                    <li className="my-1 py-2 px-4 bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300">
+                                        <button
+                                            type="button"
+                                            onClick={() => dispatch(logout())}
                                         >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                            />
-                                        </svg>
-                                    </Link>
-                                ) : (
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                                {/* User Icon */}
+                                <button onClick={handleUserOption}>
                                     <svg
-                                        className="w-4 sm:w-5 md:w-6"
+                                        className={
+                                            "w-4 sm:w-5 md:w-6 text-primaryYellow"
+                                        }
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -106,7 +119,7 @@ export default function Header() {
                                             d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
                                         />
                                     </svg>
-                                )}
+                                </button>
                             </li>
                         </ul>
                     </div>

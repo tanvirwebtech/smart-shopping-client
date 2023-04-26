@@ -2,7 +2,7 @@ const initialState = { loading: false, user: "", err: null };
 
 const registerReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "REG_PENDING":
+        case "AUTH_PENDING":
             return {
                 ...state,
                 loading: true,
@@ -25,6 +25,30 @@ const registerReducer = (state = initialState, action) => {
                 ...state,
                 user: "",
                 err: null,
+                loading: false,
+            };
+        case "LOGIN_SUCCESS":
+            return {
+                ...state,
+                user: action.payload.email,
+                loading: false,
+            };
+        case "LOGIN_FAILED":
+            return {
+                ...state,
+                user: "",
+                err: action.payload,
+                loading: false,
+            };
+        case "LOGOUT":
+            return {
+                ...state,
+                user: "",
+            };
+        case "LOGOUT_FAIL":
+            return {
+                ...state,
+                err: action.payload,
                 loading: false,
             };
         default:
