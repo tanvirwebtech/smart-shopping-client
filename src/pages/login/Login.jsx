@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import RegisterModal from "./RegisterModal";
-import { useDispatch } from "react-redux";
-// import Swal from "sweetalert2";
+import { useDispatch, useSelector } from "react-redux";
+import Swal from "sweetalert2";
 import { loginWithEmail } from "../../redux/actions/authActions";
+import { Navigate, redirect } from "react-router-dom";
 
 export default function Login() {
+    const authState = useSelector((state) => state.authState);
     const [modalOpen, setModalOpen] = useState(false);
     const dispatch = useDispatch();
+    if (authState.user) {
+        <Navigate to="/" replace={true} />;
+    }
     const {
         register,
         reset,

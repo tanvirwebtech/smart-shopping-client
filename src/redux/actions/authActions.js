@@ -4,6 +4,7 @@ import {
     signOut,
 } from "firebase/auth";
 import auth from "../../firebase/init.firebase";
+import Swal from "sweetalert2";
 
 // REGISTER WITH EMAIL AND PASS
 export const registerUser = (userData) => {
@@ -11,6 +12,7 @@ export const registerUser = (userData) => {
         dispatch({
             type: "AUTH_PENDING",
         });
+        Swal.fire("Loading!", "Registration in process!", "pending");
         createUserWithEmailAndPassword(
             auth,
             userData.email,
@@ -21,12 +23,18 @@ export const registerUser = (userData) => {
                     type: "REG_SUCCESS",
                     payload: userCredential.user,
                 });
+                Swal.fire(
+                    "Congratulations!",
+                    "Registration successful!",
+                    "success"
+                );
             })
             .catch((error) => {
                 dispatch({
                     type: "REG_FAIL",
                     payload: error.message,
                 });
+                Swal.fire("Failed!", "Registration unsuccessful!", "error");
             });
     };
 };
@@ -38,18 +46,21 @@ export const loginWithEmail = (userData) => {
         dispatch({
             type: "AUTH_PENDING",
         });
+
         signInWithEmailAndPassword(auth, userData.email, userData.loginPassword)
             .then((userCredential) => {
                 dispatch({
                     type: "LOGIN_SUCCESS",
                     payload: userCredential.user,
                 });
+                Swal.fire("Success!", "You successfully logged in!", "success");
             })
             .catch((error) => {
                 dispatch({
                     type: "LOGIN_FAILED",
                     payload: error.message,
                 });
+                Swal.fire("Failed!", "Login Unsuccessful. Try again!", "error");
             });
     };
 };
@@ -62,12 +73,14 @@ export const logout = () => {
                 dispatch({
                     type: "LOGOUT",
                 });
+                Swal.fire("Success!", "Successfully logged out!", "success");
             })
             .catch((error) => {
                 dispatch({
                     type: "LOGOUT_FAIL",
                     payload: error.message,
                 });
+                Swal.fire("Failed!", "something went wrong!", "error");
             });
     };
 };
