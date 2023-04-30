@@ -1,9 +1,10 @@
 import React from "react";
 import Footer from "./common/footer/Footer";
 import Header from "./common/header/Header";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home/Home";
 import { Suspense } from "react";
+import PrivateRoute from "./routes/privateRoute/PrivateRoute";
 
 const About = React.lazy(() => import("./pages/about/About"));
 const Shop = React.lazy(() => import("./pages/shop/Shop"));
@@ -11,6 +12,7 @@ const Login = React.lazy(() => import("./pages/login/Login"));
 const Cart = React.lazy(() => import("./pages/cart/Cart"));
 const Product = React.lazy(() => import("./pages/product/Product"));
 const Category = React.lazy(() => import("./pages/category/Category"));
+const Profile = React.lazy(() => import("./pages/profile/Profile"));
 
 export default function TheLayout() {
     return (
@@ -27,6 +29,14 @@ export default function TheLayout() {
                         <Route path="/login" element={<Login />}></Route>
                         <Route path="/cart" element={<Cart />}></Route>
                         <Route
+                            path="/profile"
+                            element={
+                                <PrivateRoute>
+                                    <Profile />
+                                </PrivateRoute>
+                            }
+                        ></Route>
+                        <Route
                             path="/product/:id"
                             element={<Product />}
                         ></Route>
@@ -34,6 +44,7 @@ export default function TheLayout() {
                             path="/products/:category"
                             element={<Category />}
                         ></Route>
+                        <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                 </Suspense>
             </main>

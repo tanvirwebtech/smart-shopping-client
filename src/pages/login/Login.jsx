@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import RegisterModal from "./RegisterModal";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
-import { loginWithEmail } from "../../redux/actions/authActions";
+import { googleSignIn, loginWithEmail } from "../../redux/actions/authActions";
 import { Navigate, redirect } from "react-router-dom";
 
 export default function Login() {
@@ -27,6 +27,19 @@ export default function Login() {
         setModalOpen(!modalOpen);
     };
 
+    if (authState.user) {
+        return (
+            <div className="container mx-auto">
+                <div className="page-heading mt-20 text-center ">
+                    <h2 className="text-3xl">Already logged in.</h2>
+                    <p>
+                        If you want to log in with a different account please
+                        logout first.
+                    </p>
+                </div>
+            </div>
+        );
+    }
     return (
         <>
             <div className="container mx-auto">
@@ -41,7 +54,7 @@ export default function Login() {
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="mb-6">
                                     <label
-                                        for="email"
+                                        htmlFor="email"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                     >
                                         Your email
@@ -62,7 +75,7 @@ export default function Login() {
                                 </div>
                                 <div className="mb-6">
                                     <label
-                                        for="password"
+                                        htmlFor="password"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
                                     >
                                         Password
@@ -96,7 +109,10 @@ export default function Login() {
                             </h4>
                             <div className="login-methods-wrap mt-8">
                                 <div className="google-login">
-                                    <button className="bg-siteGray-200 text-white border-0 rounded-sm py-4 px-4 hover:bg-primaryYellow hover:text-siteGray-400 duration-300 w-full">
+                                    <button
+                                        className="bg-siteGray-200 text-white border-0 rounded-sm py-4 px-4 hover:bg-primaryYellow hover:text-siteGray-400 duration-300 w-full"
+                                        onClick={() => dispatch(googleSignIn())}
+                                    >
                                         Google
                                     </button>
                                 </div>

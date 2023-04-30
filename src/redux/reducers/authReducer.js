@@ -1,4 +1,4 @@
-const initialState = { loading: false, user: "", err: null };
+const initialState = { loading: false, user: null, err: null };
 
 const registerReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -10,7 +10,7 @@ const registerReducer = (state = initialState, action) => {
         case "REG_SUCCESS":
             return {
                 ...state,
-                user: action.payload.email,
+                user: action.payload,
                 loading: false,
             };
         case "REG_FAIL":
@@ -23,14 +23,14 @@ const registerReducer = (state = initialState, action) => {
         case "REG_CLEAR":
             return {
                 ...state,
-                user: "",
+                user: null,
                 err: null,
                 loading: false,
             };
         case "LOGIN_SUCCESS":
             return {
                 ...state,
-                user: action.payload.email,
+                user: action.payload,
                 loading: false,
             };
         case "LOGIN_FAILED":
@@ -43,7 +43,7 @@ const registerReducer = (state = initialState, action) => {
         case "LOGOUT":
             return {
                 ...state,
-                user: "",
+                user: null,
             };
         case "LOGOUT_FAIL":
             return {

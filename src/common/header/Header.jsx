@@ -86,8 +86,11 @@ export default function Header() {
                                     }`}
                                 >
                                     <li className="my-1 py-2 px-4 bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300">
-                                        <Link to={"/"}>
-                                            <button type="button">
+                                        <Link to={"/profile"}>
+                                            <button
+                                                type="button"
+                                                onClick={handleUserOption}
+                                            >
                                                 Profile
                                             </button>
                                         </Link>
@@ -230,15 +233,17 @@ export default function Header() {
                                     All Categories
                                 </Link>
                             </li>
-                            <li>
-                                <Link
-                                    to="/login"
-                                    className="headerNavLink"
-                                    aria-current="page"
-                                >
-                                    Login
-                                </Link>
-                            </li>
+                            {!authState.user && (
+                                <li>
+                                    <Link
+                                        to="/login"
+                                        className="headerNavLink"
+                                        aria-current="page"
+                                    >
+                                        Login
+                                    </Link>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </div>

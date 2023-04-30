@@ -1,10 +1,14 @@
 import {
+    GoogleAuthProvider,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signInWithPopup,
+    signInWithRedirect,
     signOut,
 } from "firebase/auth";
 import auth from "../../firebase/init.firebase";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 // REGISTER WITH EMAIL AND PASS
 export const registerUser = (userData) => {
@@ -19,10 +23,21 @@ export const registerUser = (userData) => {
             userData.confirm_pass
         )
             .then((userCredential) => {
-                dispatch({
-                    type: "REG_SUCCESS",
-                    payload: userCredential.user,
-                });
+                axios
+                    .post("http://localhost:5000/registerUser", userData)
+                    .then(function (response) {
+                        dispatch({
+                            type: "REG_SUCCESS",
+                            payload: userCredential.user,
+                        });
+                    })
+                    .catch(function (error) {
+                        dispatch({
+                            type: "REG_FAIL",
+                            payload: error.message,
+                        });
+                        console.log(error);
+                    });
                 Swal.fire(
                     "Congratulations!",
                     "Registration successful!",
@@ -53,6 +68,7 @@ export const loginWithEmail = (userData) => {
                     type: "LOGIN_SUCCESS",
                     payload: userCredential.user,
                 });
+
                 Swal.fire("Success!", "You successfully logged in!", "success");
             })
             .catch((error) => {
@@ -62,6 +78,38 @@ export const loginWithEmail = (userData) => {
                 });
                 Swal.fire("Failed!", "Login Unsuccessful. Try again!", "error");
             });
+    };
+};
+
+// Sign in with Google
+
+export const googleSignIn = () => {
+    const provider = new GoogleAuthProvider();
+    return (dispatch) => {
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                axios
+                    .post("http://localhost:5000/registerUser", result.user)
+                    .then(function (response) {
+                        dispatch({
+                            type: "LOGIN_SUCCESS",
+                            payload: result.user,
+                        });
+                        Swal.fire(
+                            "Success!",
+                            "You successfully logged in!",
+                            "success"
+                        );
+                    });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: "LOGIN_FAILED",
+                    payload: error.message,
+                });
+                Swal.fire("Failed!", "Login Unsuccessful. Try again!", "error");
+            })
+            .finally({});
     };
 };
 
