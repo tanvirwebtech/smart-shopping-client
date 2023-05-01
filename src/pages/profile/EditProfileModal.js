@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const EditProfileModal = ({ isOpen, onClose }) => {
+const EditProfileModal = ({ isOpen, onClose, user }) => {
+    const [name, setName] = useState("");
+    useEffect(() => {
+        setName(user.displayName);
+    }, []);
     const {
         register,
         handleSubmit,
@@ -16,7 +21,9 @@ const EditProfileModal = ({ isOpen, onClose }) => {
         // handle form data here
         onClose();
     };
-
+    const handleOnChange = (event) => {
+        return setName(event.target.value);
+    };
     return (
         <div>
             <div
@@ -62,20 +69,6 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="mb-4">
                                     <label
-                                        htmlFor="email"
-                                        className="block text-gray-700 dark:text-siteGray-100 font-medium mb-2"
-                                    >
-                                        Email
-                                    </label>
-                                    <input
-                                        id="email"
-                                        type="email"
-                                        className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
-                                        disabled
-                                    />
-                                </div>
-                                <div className="mb-4">
-                                    <label
                                         htmlFor="name"
                                         className="block text-gray-700 dark:text-siteGray-100 font-medium mb-2"
                                     >
@@ -86,6 +79,23 @@ const EditProfileModal = ({ isOpen, onClose }) => {
                                         type="text"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
                                         {...register("name", {})}
+                                        value={name}
+                                        onChange={handleOnChange}
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label
+                                        htmlFor="email"
+                                        className="block text-gray-700 dark:text-siteGray-100 font-medium mb-2"
+                                    >
+                                        Email
+                                    </label>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
+                                        value={user.email}
+                                        disabled
                                     />
                                 </div>
                                 <div className="mb-4">

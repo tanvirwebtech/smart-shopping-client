@@ -1,6 +1,19 @@
+import axios from "axios";
+
 // add to cart
 export function addToCart(product) {
     if (product.quantity !== undefined) {
+        // axios
+        //     .put("localhost:5000/user", {
+        //         firstName: "Fred",
+        //         lastName: "Flintstone",
+        //     })
+        //     .then(function (response) {
+        //         console.log(response);
+        //     })
+        //     .catch(function (error) {
+        //         console.log(error);
+        //     });
         return { type: "ADD_TO_CART", payload: product };
     } else {
         const quantity = 1;

@@ -5,6 +5,7 @@ import {
     signInWithPopup,
     signInWithRedirect,
     signOut,
+    updateProfile,
 } from "firebase/auth";
 import auth from "../../firebase/init.firebase";
 import Swal from "sweetalert2";
@@ -26,17 +27,22 @@ export const registerUser = (userData) => {
                 axios
                     .post("http://localhost:5000/registerUser", userData)
                     .then(function (response) {
-                        dispatch({
-                            type: "REG_SUCCESS",
-                            payload: userCredential.user,
-                        });
+                        updateProfile(auth.currentUser, {
+                            displayName: userData.name,
+                        })
+                            .then(() => {
+                                dispatch({
+                                    type: "REG_SUCCESS",
+                                    payload: userCredential.user,
+                                });
+                            })
+                            .catch((error) => {});
                     })
                     .catch(function (error) {
                         dispatch({
                             type: "REG_FAIL",
                             payload: error.message,
                         });
-                        console.log(error);
                     });
                 Swal.fire(
                     "Congratulations!",
@@ -91,6 +97,7 @@ export const googleSignIn = () => {
                 axios
                     .post("http://localhost:5000/registerUser", result.user)
                     .then(function (response) {
+                        console.log(response);
                         dispatch({
                             type: "LOGIN_SUCCESS",
                             payload: result.user,

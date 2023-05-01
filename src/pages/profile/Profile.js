@@ -29,7 +29,11 @@ const Profile = () => {
 
     return (
         <>
-            <EditProfileModal isOpen={isOpen} onClose={handleCloseModal} />
+            <EditProfileModal
+                isOpen={isOpen}
+                onClose={handleCloseModal}
+                user={user}
+            />
             <div className="max-w-screen-lg mx-auto px-4 py-8">
                 <div className="flex flex-col md:flex-row items-center justify-between mb-8">
                     <div className="flex items-center mb-4 md:mb-0">
