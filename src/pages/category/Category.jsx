@@ -13,7 +13,7 @@ export default function Category() {
     };
     console.log(getCategoryProducts());
     return (
-        <div className="container w-10/12 mx-auto">
+        <div className="container w-11/12 mx-auto">
             <div className="page-heading">
                 <h2 className="capitalize text-3xl text-center">
                     Category:{" "}

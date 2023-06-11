@@ -17,7 +17,7 @@ const Profile = React.lazy(() => import("./pages/profile/Profile"));
 export default function TheLayout() {
     return (
         <>
-            <header>
+            <header className="w-full">
                 <Header></Header>
             </header>
             <main className="mt-40">
@@ -27,6 +27,7 @@ export default function TheLayout() {
                         <Route path="/about" element={<About />}></Route>
                         <Route path="/all-products" element={<Shop />}></Route>
                         <Route path="/login" element={<Login />}></Route>
+
                         <Route path="/cart" element={<Cart />}></Route>
                         <Route
                             path="/profile"

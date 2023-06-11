@@ -6,7 +6,7 @@ export default function ProductCard(props) {
     const { product } = props;
     const dispatch = useDispatch();
     const cartProduct = useSelector((state) => state.cart);
-
+    const user = useSelector((state) => state.authState);
     return (
         <div className="product-card border m-2">
             <div className="product-wrapper">
@@ -55,7 +55,11 @@ export default function ProductCard(props) {
                             ) : (
                                 <button
                                     className="cart-btn"
-                                    onClick={() => dispatch(addToCart(product))}
+                                    onClick={() =>
+                                        dispatch(
+                                            addToCart(product, user.user.email)
+                                        )
+                                    }
                                 >
                                     Add to cart
                                 </button>

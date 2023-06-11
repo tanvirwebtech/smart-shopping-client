@@ -10,6 +10,7 @@ import {
 import auth from "../../firebase/init.firebase";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // REGISTER WITH EMAIL AND PASS
 export const registerUser = (userData) => {
@@ -62,11 +63,12 @@ export const registerUser = (userData) => {
 
 // LOGIN WITH EMAIL PASS //
 
-export const loginWithEmail = (userData) => {
+export const loginWithEmail = (userData, location) => {
     return (dispatch) => {
         dispatch({
             type: "AUTH_PENDING",
         });
+        // const from = location.state?.from?.pathname;
 
         signInWithEmailAndPassword(auth, userData.email, userData.loginPassword)
             .then((userCredential) => {
@@ -74,8 +76,8 @@ export const loginWithEmail = (userData) => {
                     type: "LOGIN_SUCCESS",
                     payload: userCredential.user,
                 });
-
                 Swal.fire("Success!", "You successfully logged in!", "success");
+                // navigate(from, { replace: true });
             })
             .catch((error) => {
                 dispatch({

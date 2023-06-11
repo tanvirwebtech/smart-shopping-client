@@ -60,121 +60,126 @@ export default function RegisterModal(props) {
                             <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
                                 Register in to our platform
                             </h3>
-                            <form
-                                className="space-y-6"
-                                onSubmit={handleSubmit(onSubmit)}
-                            >
-                                <div>
-                                    <label
-                                        htmlFor="name"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >
-                                        Your Full Name
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        id="name"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Enter your name."
-                                        {...register("name", {
-                                            required: true,
-                                        })}
-                                    />
-                                    {errors.name && (
-                                        <span className="text-red-600">
-                                            Please enter your name!
-                                        </span>
-                                    )}
-                                </div>
-                                <div>
-                                    <label
-                                        htmlFor="email"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >
-                                        Your Email
-                                    </label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        id="email"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Enter your email."
-                                        {...register("email", {
-                                            required: true,
-                                        })}
-                                    />
-                                    {errors.email && (
-                                        <span className="text-red-600">
-                                            Please enter your email!
-                                        </span>
-                                    )}
-                                </div>
-                                <div>
-                                    <label
-                                        htmlFor="password"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >
-                                        Your password
-                                    </label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        id="password"
-                                        placeholder="••••••••"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        required
-                                        {...register("password", {
-                                            required: true,
-                                        })}
-                                    />
-                                </div>
-                                <div>
-                                    <label
-                                        htmlFor="confirmPassword"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                                    >
-                                        Confirm password
-                                    </label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        id="confirmPassword"
-                                        placeholder="••••••••"
-                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        {...register("confirm_pass", {
-                                            required: true,
-                                            validate: (val) => {
-                                                if (watch("password") !== val) {
-                                                    return "err";
-                                                }
-                                            },
-                                        })}
-                                    />
-                                    {errors.confirm_pass && (
-                                        <span className="text-red-600">
-                                            Password does not matched!
-                                        </span>
-                                    )}
-                                </div>
+                            <div className="md:w-2/5 sm:w-4/6 w-11/12 mx-auto ">
+                                <form
+                                    className="space-y-6"
+                                    onSubmit={handleSubmit(onSubmit)}
+                                >
+                                    <div>
+                                        <label
+                                            htmlFor="name"
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        >
+                                            Your Full Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            id="name"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            placeholder="Enter your name."
+                                            {...register("name", {
+                                                required: true,
+                                            })}
+                                        />
+                                        {errors.name && (
+                                            <span className="text-red-600">
+                                                Please enter your name!
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="email"
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        >
+                                            Your Email
+                                        </label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            placeholder="Enter your email."
+                                            {...register("email", {
+                                                required: true,
+                                            })}
+                                        />
+                                        {errors.email && (
+                                            <span className="text-red-600">
+                                                Please enter your email!
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="password"
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        >
+                                            Your password
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            id="password"
+                                            placeholder="••••••••"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            required
+                                            {...register("password", {
+                                                required: true,
+                                            })}
+                                        />
+                                    </div>
+                                    <div>
+                                        <label
+                                            htmlFor="confirmPassword"
+                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                        >
+                                            Confirm password
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            id="confirmPassword"
+                                            placeholder="••••••••"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            {...register("confirm_pass", {
+                                                required: true,
+                                                validate: (val) => {
+                                                    if (
+                                                        watch("password") !==
+                                                        val
+                                                    ) {
+                                                        return "err";
+                                                    }
+                                                },
+                                            })}
+                                        />
+                                        {errors.confirm_pass && (
+                                            <span className="text-red-600">
+                                                Password does not matched!
+                                            </span>
+                                        )}
+                                    </div>
 
-                                {loading ? (
-                                    <button
-                                        type="submit"
-                                        className="w-full text-white bg-primaryYellow hover:bg-primaryYellow focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primaryYellow dark:hover:bg-primaryYellow dark:focus:ring-primaryYellow"
-                                        disabled
-                                    >
-                                        Loading...
-                                    </button>
-                                ) : (
-                                    <button
-                                        type="submit"
-                                        className="w-full text-white bg-primaryYellow hover:bg-primaryYellow focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primaryYellow dark:hover:bg-primaryYellow dark:focus:ring-primaryYellow"
-                                    >
-                                        Register
-                                    </button>
-                                )}
-                            </form>
+                                    {loading ? (
+                                        <button
+                                            type="submit"
+                                            className="w-full text-white bg-primaryYellow hover:bg-primaryYellow focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primaryYellow dark:hover:bg-primaryYellow dark:focus:ring-primaryYellow"
+                                            disabled
+                                        >
+                                            Loading...
+                                        </button>
+                                    ) : (
+                                        <button
+                                            type="submit"
+                                            className="w-full text-white bg-primaryYellow hover:bg-primaryYellow focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primaryYellow dark:hover:bg-primaryYellow dark:focus:ring-primaryYellow"
+                                        >
+                                            Register
+                                        </button>
+                                    )}
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>

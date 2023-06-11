@@ -2,16 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import ProductCard from "./../productCard/ProductCard";
-function SamplePrevArrow(props) {
+export function SamplePrevArrow(props) {
     const { onClick } = props;
     return (
         <div
-            className="p-4 inline-block bg-siteGray-100 rounded-sm absolute -left-16 top-1/2 -translate-y-1/2"
+            className="p-2 inline-block z-40 bg-siteGray-100 rounded-full absolute left-6 top-1/2 -translate-y-1/2 "
             onClick={onClick}
         >
             {" "}
             <svg
-                className="w-6 h-6"
+                className="md:w-10 sm:w-8 w-6 text-primaryYellow"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -27,15 +27,15 @@ function SamplePrevArrow(props) {
         </div>
     );
 }
-function SampleNextArrow(props) {
+export function SampleNextArrow(props) {
     const { onClick } = props;
     return (
         <div
-            className="p-4 inline-block bg-siteGray-100 rounded-sm absolute -right-16 top-1/2 -translate-y-1/2"
+            className="p-2 inline-block absolute bg-siteGray-100 rounded-full right-6 top-1/2 -translate-y-1/2"
             onClick={onClick}
         >
             <svg
-                className="w-6 h-6"
+                className="md:w-10 sm:w-6 w-4 text-primaryYellow"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -107,7 +107,7 @@ export default function ProductSlider(props) {
         ],
     };
     return (
-        <div className="container w-10/12 mx-auto mt-10">
+        <div className="container w-11/12 mx-auto mt-10">
             <div className="section-heading mt-4 flex justify-between items-center">
                 <h2 className="font-bold text-4xl p-2 text-siteGray-400 capitalize">
                     {categoryHeading ? categoryHeading + "s" : sectionHeading}
