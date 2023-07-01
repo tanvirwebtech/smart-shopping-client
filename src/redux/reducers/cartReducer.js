@@ -2,16 +2,19 @@ const initialState = [];
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
         case "ADD_TO_CART":
-            const findCart = state.find((pd) => pd._id === action.payload._id);
+            const findCart = state.find((pd) => pd.id === action.payload);
             if (findCart) {
                 return [...state];
             } else {
                 return [...state, action.payload];
             }
+        case "CART":
+            const cart = action.payload;
+            return [...state, cart];
+
         case "REMOVE_FROM_CART":
-            const filterCart = state.filter(
-                (pd) => pd._id !== action.payload._id
-            );
+            const filterCart = state.filter((pd) => pd.id !== action.payload);
+
             return filterCart;
 
         case "QUANTITY_INCREASE":

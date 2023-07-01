@@ -8,7 +8,7 @@ export default function Footer() {
             className="md:py-10
          sm:py-8 py-6 border-t-2 mt-6"
         >
-            <div className="container  w-11/12">
+            <div className="container">
                 <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 md:gap-8 sm:gap-4 gap-4 pb-10">
                     <div className="site-info">
                         <div className="info-wrap">

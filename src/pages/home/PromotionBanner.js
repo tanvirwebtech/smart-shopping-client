@@ -8,7 +8,7 @@ const promBannerStyle = {
 };
 const PromotionBanner = () => {
     return (
-        <div className="container w-11/12 mx-auto p-4" style={promBannerStyle}>
+        <div className="container p-4" style={promBannerStyle}>
             <div className="promotion-banner p-4 bg-siteGray-100">
                 <div className="grid md:grid-cols-3 py-4 items-center">
                     <div className="info text-right">
@@ -18,7 +18,7 @@ const PromotionBanner = () => {
                         </h3>
                     </div>
                     <div className="info ml-4 text-md">
-                        <p className="">
+                        <p className="p-2">
                             Get FREE SHIPPING* & 5% rewards on every order with
                             Molla Theme rewards program
                         </p>

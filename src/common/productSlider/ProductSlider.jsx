@@ -107,7 +107,7 @@ export default function ProductSlider(props) {
         ],
     };
     return (
-        <div className="container w-11/12 mx-auto mt-10">
+        <div className="container mt-10">
             <div className="section-heading mt-4 flex justify-between items-center">
                 <h2 className="font-bold text-4xl p-2 text-siteGray-400 capitalize">
                     {categoryHeading ? categoryHeading + "s" : sectionHeading}
@@ -134,7 +134,7 @@ export default function ProductSlider(props) {
                         ))}
                     </Slider>
                 ) : (
-                    <div className="grid grid-cols-4 gap-4">
+                    <div className="grid lg:grid-cols-4 md:grid-clos-3 sm:grid-cols-2 grid-cols-1 md:gap-4 lg:gap-8 gap-2">
                         {products.map((product) => (
                             <ProductCard
                                 key={product._id}

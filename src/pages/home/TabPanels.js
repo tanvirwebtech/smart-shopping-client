@@ -9,12 +9,12 @@ const TabPanels = () => {
     const topRated = products.filter((pd) => pd.category === "laptop");
 
     return (
-        <div className="container lg:w-11/12 mx-auto w-11/12">
+        <div className="container">
             <Tabs className={"lg:py-8 md:py-4 py-2"}>
                 <TabList className={"flex justify-center"}>
                     <Tab
                         className={
-                            "home-tab-title text-gray-300 mx-4 cursor-pointer"
+                            "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                         }
                     >
                         <h3 className="font-bold lg:text-3xl md:text-2xl text-xl ">
@@ -23,7 +23,7 @@ const TabPanels = () => {
                     </Tab>
                     <Tab
                         className={
-                            "home-tab-title text-gray-300 mx-4 cursor-pointer"
+                            "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                         }
                     >
                         <h3 className="font-bold lg:text-3xl md:text-2xl text-xl ">
@@ -32,7 +32,7 @@ const TabPanels = () => {
                     </Tab>
                     <Tab
                         className={
-                            "home-tab-title text-gray-300 mx-4 cursor-pointer"
+                            "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                         }
                     >
                         <h3 className="font-bold lg:text-3xl md:text-2xl text-xl ">

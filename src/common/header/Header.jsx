@@ -4,16 +4,24 @@ import logo from "../../assets/images/logo3.png";
 import SearchBox from "./headerComponents/SearchBox";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/authActions";
+import { useEffect } from "react";
 export default function Header() {
     const [navToggle, setNavToggle] = useState(false);
     const [userOption, setUserOption] = useState(false);
     const authState = useSelector((state) => state.authState);
-    const cart = useSelector((state) => state.cart);
+    const cart = useSelector((state) => state.cart[0]);
     const dispatch = useDispatch();
 
     const handleNavToggle = () => {
         setNavToggle(!navToggle);
     };
+    useEffect(() => {
+        if (userOption) {
+            setTimeout(() => {
+                setUserOption(false);
+            }, 3000);
+        }
+    }, [userOption]);
     const handleUserOption = () => {
         setUserOption(!userOption);
         console.log(userOption);
@@ -24,7 +32,7 @@ export default function Header() {
                 <div className="container flex items-center mx-auto justify-between">
                     {/* Brand Logo  */}
                     <Link to="/" className="flex items-center">
-                        <div className="w-2/3 sm:w-full">
+                        <div className="w-full">
                             <img
                                 src={logo}
                                 className="mr-3"
@@ -36,12 +44,12 @@ export default function Header() {
                     <SearchBox></SearchBox>
                     {/* Icons  */}
                     <div className="useful-icons">
-                        <ul className="flex p-2  bg-siteGray-100 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0  dark:bg-gray-700 dark:border-gray-900">
-                            <li className="font-sans p-1 md:inline-block lg:mt-0 ml-2 align-middle ">
+                        <ul className="flex p-2  bg-siteGray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0  dark:bg-gray-700 dark:border-gray-900">
+                            <li className="font-sans ml-2 sm:ml-0 p-1 md:inline-block lg:mt-0 ">
                                 {/* Cart Icon  */}
                                 <Link to="/cart" className="relative">
                                     <svg
-                                        className="w-4 sm:w-5 md:w-6"
+                                        className="w-5 md:w-6 text-primaryYellow"
                                         fill="none"
                                         stroke="currentColor"
                                         viewBox="0 0 24 24"
@@ -55,15 +63,15 @@ export default function Header() {
                                         />
                                     </svg>
                                     <span className="absolute -right-2 top-0 rounded-full bg-primaryYellow w-4 h-4 top right p-0 m-0 text-gray-900 font-mono text-sm  leading-tight text-center">
-                                        {cart.length}
+                                        {cart?.length ? cart?.length : 0}
                                     </span>
                                 </Link>
                             </li>
-                            <li className="font-sans p-1 md:inline-block lg:mt-0 ml-2 align-middle ">
+                            <li className="font-sans ml-2 sm:ml-0 p-1 md:inline-block lg:mt-0  ">
                                 {/* Wishlist Icon  */}
 
                                 <svg
-                                    className="w-4 sm:w-5 md:w-6"
+                                    className="w-5 md:w-6"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -77,38 +85,41 @@ export default function Header() {
                                     />
                                 </svg>
                             </li>
-                            <li className="font-sans p-1 md:inline-block lg:mt-0 ml-2 align-middle relative">
+                            {/* Profile Options */}
+                            <li className="font-sans ml-2 md:ml-0 p-1 md:inline-block lg:mt-0 relative">
                                 <ul
                                     className={`${
                                         authState.user && userOption
-                                            ? "absolute right-4 top-8"
+                                            ? "absolute right-4 top-8 z-30"
                                             : "hidden absolute right-4 top-8"
                                     }`}
                                 >
-                                    <li className="my-1 py-2 px-4 bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300">
-                                        <Link to={"/profile"}>
-                                            <button
-                                                type="button"
-                                                onClick={handleUserOption}
-                                            >
-                                                Profile
-                                            </button>
+                                    <li>
+                                        <Link
+                                            to={"/profile"}
+                                            className="inline-block py-2 px-4 my-1  bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300 cursor-pointer"
+                                            onClick={handleUserOption}
+                                        >
+                                            Profile
                                         </Link>
                                     </li>
-                                    <li className="my-1 py-2 px-4 bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300">
+                                    <li>
                                         <button
                                             type="button"
+                                            className="inline-block py-2 px-4 my-1  bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300 cursor-pointer"
                                             onClick={() => dispatch(logout())}
                                         >
                                             Logout
                                         </button>
                                     </li>
                                 </ul>
+                                {/* // */}
                                 {/* User Icon */}
+                                {/* // */}
                                 <button onClick={handleUserOption}>
                                     <svg
                                         className={
-                                            "w-4 sm:w-5 md:w-6 text-primaryYellow"
+                                            "w-5 md:w-6 text-primaryYellow"
                                         }
                                         fill="none"
                                         stroke="currentColor"
@@ -128,12 +139,13 @@ export default function Header() {
                     </div>
                 </div>
                 <hr />
-                <div className="container">
+                <div className="container relative">
                     <div className="flex items-center mx-auto">
+                        {/* Mobile Menu Button */}
                         <button
                             data-collapse-toggle="navbar-default"
                             type="button"
-                            className="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                            className="inline-flex items-center p-1 ml-3 mt-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                             aria-controls="navbar-default"
                             aria-expanded="false"
                             onClick={handleNavToggle}
@@ -173,12 +185,12 @@ export default function Header() {
                     <div
                         className={
                             navToggle
-                                ? "justify-between items-center w-full md:flex md:w-auto md:order-1"
+                                ? "justify-between absolute top-8 left-0 items-center w-full md:flex md:w-auto md:order-1"
                                 : "hidden justify-center items-center w-full md:flex md:w-auto md:order-1"
                         }
                         id="navbar-default"
                     >
-                        <ul className="flex flex-col p-2 mt-4 bg-siteGray-100 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0  dark:bg-gray-700 dark:border-gray-900">
+                        <ul className="flex flex-col p-2 mt-4 bg-siteGray-100 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0  dark:bg-gray-700 dark:border-primaryYellow">
                             <li>
                                 <Link
                                     to="/"

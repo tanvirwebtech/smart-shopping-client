@@ -1,24 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+    clearCart,
     quantityMinus,
     quantityPlus,
     removeFromCart,
 } from "../../redux/actions/cartActions";
 export default function Cart() {
-    const cart = useSelector((state) => state.cart);
+    const cart = useSelector((state) => state.cart[0]);
+    const products = useSelector((state) => state.products);
+    const user = useSelector((state) => state.authState.user);
+    const [localCart, setLocalCart] = useState([]);
+    const [subtotal, setSubtotal] = useState(0);
     const dispatch = useDispatch();
 
-    const getPrice = () => {
-        let price = 0;
-        for (const pd of cart) {
-            price = price + pd.price * pd.quantity;
+    useEffect(() => {
+        const getPrice = () => {
+            let price = 0;
+
+            for (const pd of localCart) {
+                price = price + pd.price * pd.qty;
+            }
+            return price;
+        };
+        setSubtotal(getPrice);
+    }, [localCart]);
+
+    useEffect(() => {
+        if (cart?.length) {
+            console.log(cart);
+            let newCart = [];
+            if (products.length) {
+                cart.forEach((el) => {
+                    const addedPd = products.find((pd) => pd._id === el.id);
+                    const qty = el.qty;
+                    const productWithQty = { ...addedPd, qty: qty };
+                    newCart.push(productWithQty);
+                });
+            }
+            setLocalCart(newCart);
+            console.log(newCart);
+        } else {
+            clearCart();
+            setLocalCart([]);
         }
-        return price;
-    };
+    }, [products, cart]);
+    console.log(localCart);
 
     return (
-        <div className="container mx-auto">
+        <div className="container">
             <h2 className="text-4xl font-medium text-center mt-8 py-4">
                 Shopping Cart
             </h2>
@@ -27,11 +57,14 @@ export default function Cart() {
                 <div className="grid grid-cols-3 ">
                     <div className="col-span-2 ">
                         <h4 className="text-center font-medium text-2xl">
-                            {cart.length ? "Products" : "No Products in Cart"}
+                            {localCart?.length
+                                ? "Products"
+                                : "No Products in Cart"}
                         </h4>
                         <hr />
                         <div className="cart-products">
-                            {cart.map((cartProduct) => (
+                            {!localCart?.length && <>Loading...</>}
+                            {localCart?.map((cartProduct) => (
                                 <div
                                     key={cartProduct._id}
                                     className="cart-product border rounded-sm p-2 m-2"
@@ -51,7 +84,7 @@ export default function Cart() {
                                                 <h5>
                                                     Price:{" "}
                                                     <span>
-                                                        {cartProduct.price}
+                                                        {cartProduct?.price}
                                                     </span>
                                                 </h5>
                                             </div>
@@ -109,7 +142,7 @@ export default function Cart() {
                                                 $
                                                 <span>
                                                     {cartProduct.price *
-                                                        cartProduct.quantity}
+                                                        cartProduct.qty}
                                                 </span>
                                             </h4>
                                         </div>
@@ -120,7 +153,8 @@ export default function Cart() {
                                                 onClick={() =>
                                                     dispatch(
                                                         removeFromCart(
-                                                            cartProduct
+                                                            cartProduct._id,
+                                                            user.email
                                                         )
                                                     )
                                                 }
@@ -152,9 +186,9 @@ export default function Cart() {
                             <h4>Order Summary</h4>
                         </div>
                         <div className="mt-4 p-2">
-                            <p>Total Items: {cart.length}</p>
+                            <p>Total Items: {localCart?.length}</p>
                             <p>
-                                Subtotal: <span>{getPrice()}</span>
+                                Subtotal: <span>{subtotal}</span>
                             </p>
                         </div>
                         <div className="apply-voucher">

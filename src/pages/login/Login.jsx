@@ -29,7 +29,7 @@ export default function Login() {
 
     if (authState.user) {
         return (
-            <div className="container mx-auto">
+            <div className="container">
                 <div className="page-heading mt-20 text-center ">
                     <h2 className="text-3xl">Already logged in.</h2>
                     <p>
@@ -42,7 +42,7 @@ export default function Login() {
     }
     return (
         <>
-            <div className="container mx-auto">
+            <div className="container">
                 <div className="page-heading mt-20">
                     <h2 className="text-center text-3xl">
                         Welcome to Smart Shopping! Please Login
