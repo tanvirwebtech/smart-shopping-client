@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const ViewCartBtn = ({ sz }) => {
     const [lg, md, sm] = [
-        "capitalize py-4 px-8 bg-primaryYellow text-white border-0 font-medium text-lg rounded-sm hover:bg-yellow-700 duration-300",
-        "capitalize py-3 px-5 bg-primaryYellow text-white border-0 text-md font-medium rounded-sm hover:bg-yellow-700 duration-300",
-        "capitalize py-2 px-4  bg-primaryYellow text-white border-0 text-sm font-medium rounded-sm hover:bg-yellow-700 duration-300",
+        "capitalize py-4 px-8 bg-primaryYellow text-white border-0 font-medium text-sm rounded-sm hover:bg-yellow-700 duration-300",
+        "capitalize py-3 px-5 bg-primaryYellow text-white border-0 text-sm font-medium rounded-sm hover:bg-yellow-700 duration-300",
+        "capitalize py-2 px-4  bg-primaryYellow text-white border-0 text-xs font-medium rounded-sm hover:bg-yellow-700 duration-300",
     ];
     return (
         <Link to={"/cart"}>

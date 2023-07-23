@@ -2,6 +2,7 @@ import React from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import ProductSlider from "./../../common/productSlider/ProductSlider";
 import { useSelector } from "react-redux";
+import Spinner from "../../common/spinners/Spinner";
 
 const TabPanels = () => {
     const products = useSelector((state) => state.products);
@@ -9,7 +10,7 @@ const TabPanels = () => {
     const topRated = products.filter((pd) => pd.category === "laptop");
 
     return (
-        <div className="container">
+        <div className="container mt-4 sm:mt-6">
             <Tabs className={"lg:py-8 md:py-4 py-2"}>
                 <TabList className={"flex justify-center"}>
                     <Tab
@@ -17,7 +18,7 @@ const TabPanels = () => {
                             "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                         }
                     >
-                        <h3 className="font-bold lg:text-3xl md:text-2xl text-xl ">
+                        <h3 className="font-bold lg:text-3xl md:text-2xl sm:text-base text-xs  ">
                             Featured
                         </h3>
                     </Tab>
@@ -26,7 +27,7 @@ const TabPanels = () => {
                             "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                         }
                     >
-                        <h3 className="font-bold lg:text-3xl md:text-2xl text-xl ">
+                        <h3 className="font-bold lg:text-3xl md:text-2xl sm:text-base text-xs  ">
                             On Sale
                         </h3>
                     </Tab>
@@ -35,20 +36,32 @@ const TabPanels = () => {
                             "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                         }
                     >
-                        <h3 className="font-bold lg:text-3xl md:text-2xl text-xl ">
+                        <h3 className="font-bold lg:text-3xl md:text-2xl sm:text-base text-xs  ">
                             Top Rated
                         </h3>
                     </Tab>
                 </TabList>
 
                 <TabPanel>
-                    <ProductSlider products={featured}></ProductSlider>
+                    {!products.length ? (
+                        <Spinner></Spinner>
+                    ) : (
+                        <ProductSlider products={featured}></ProductSlider>
+                    )}
                 </TabPanel>
                 <TabPanel>
-                    <ProductSlider products={products}></ProductSlider>
+                    {!products.length ? (
+                        <Spinner></Spinner>
+                    ) : (
+                        <ProductSlider products={products}></ProductSlider>
+                    )}
                 </TabPanel>
                 <TabPanel>
-                    <ProductSlider products={topRated}></ProductSlider>
+                    {!products.length ? (
+                        <Spinner></Spinner>
+                    ) : (
+                        <ProductSlider products={topRated}></ProductSlider>
+                    )}
                 </TabPanel>
             </Tabs>
         </div>

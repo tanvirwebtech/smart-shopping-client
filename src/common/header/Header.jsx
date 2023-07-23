@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../assets/images/logo3.png";
 import SearchBox from "./headerComponents/SearchBox";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/authActions";
 import { useEffect } from "react";
+import logo from "../../assets/images/logo3.png";
+
 export default function Header() {
     const [navToggle, setNavToggle] = useState(false);
     const [userOption, setUserOption] = useState(false);
     const authState = useSelector((state) => state.authState);
-    const cart = useSelector((state) => state.cart[0]);
+    const cart = useSelector((state) => state.cart.cart);
     const dispatch = useDispatch();
 
     const handleNavToggle = () => {
@@ -24,28 +25,31 @@ export default function Header() {
     }, [userOption]);
     const handleUserOption = () => {
         setUserOption(!userOption);
-        console.log(userOption);
     };
     return (
         <div className="w-full relative">
             <nav className="bg-siteGray-100 border-b border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-700 fixed top-0 w-full z-50">
                 <div className="container flex items-center mx-auto justify-between">
                     {/* Brand Logo  */}
-                    <Link to="/" className="flex items-center">
-                        <div className="w-full">
-                            <img
-                                src={logo}
-                                className="mr-3"
-                                alt="Smart Shopping Logo"
-                            />
-                        </div>
-                    </Link>
+                    <div className="w-1/3 sm:w-1/4">
+                        <Link to="/" className="">
+                            <div className="w-full">
+                                <img
+                                    src={logo}
+                                    className="mr-3 w-full"
+                                    alt="Smart Shopping Logo"
+                                />
+                            </div>
+                        </Link>
+                    </div>
                     {/* Search Box  */}
+
                     <SearchBox></SearchBox>
+
                     {/* Icons  */}
-                    <div className="useful-icons">
-                        <ul className="flex p-2  bg-siteGray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0  dark:bg-gray-700 dark:border-gray-900">
-                            <li className="font-sans ml-2 sm:ml-0 p-1 md:inline-block lg:mt-0 ">
+                    <div className="useful-icons w-1/3 flex justify-end">
+                        <ul className="flex bg-siteGray-100 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:font-medium md:border-0  dark:bg-gray-700 dark:border-gray-900">
+                            <li className="font-sans ml-2 sm:ml-0 p-1 md:inline-block lg:mt-0 w-full">
                                 {/* Cart Icon  */}
                                 <Link to="/cart" className="relative">
                                     <svg
@@ -67,7 +71,7 @@ export default function Header() {
                                     </span>
                                 </Link>
                             </li>
-                            <li className="font-sans ml-2 sm:ml-0 p-1 md:inline-block lg:mt-0  ">
+                            <li className="font-sans ml-2 sm:ml-0 p-1 md:inline-block lg:mt-0 w-full ">
                                 {/* Wishlist Icon  */}
 
                                 <svg
@@ -86,7 +90,7 @@ export default function Header() {
                                 </svg>
                             </li>
                             {/* Profile Options */}
-                            <li className="font-sans ml-2 md:ml-0 p-1 md:inline-block lg:mt-0 relative">
+                            <li className="font-sans ml-2 md:ml-0 p-1 md:inline-block lg:mt-0 relative w-full">
                                 <ul
                                     className={`${
                                         authState.user && userOption
@@ -190,7 +194,7 @@ export default function Header() {
                         }
                         id="navbar-default"
                     >
-                        <ul className="flex flex-col p-2 mt-4 bg-siteGray-100 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:text-md md:font-medium md:border-0  dark:bg-gray-700 dark:border-primaryYellow">
+                        <ul className="flex flex-col p-2 mt-4 bg-siteGray-100 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:font-medium md:border-0  dark:bg-gray-700 dark:border-primaryYellow">
                             <li>
                                 <Link
                                     to="/"

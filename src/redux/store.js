@@ -6,6 +6,8 @@ import productReducer from "./reducers/productReducer";
 import authReducer from "./reducers/authReducer";
 import loadingReducer from "./reducers/loadingReducer";
 import localStorageReducer from "./reducers/localStorageReducer";
+import orderReducer from "./reducers/orderReducer";
+import profileReducer from "./reducers/profileReducer";
 
 const rootReducer = combineReducers({
     products: productReducer,
@@ -13,6 +15,8 @@ const rootReducer = combineReducers({
     cart: cartReducer,
     siteLoading: loadingReducer,
     pymlList: localStorageReducer,
+    order: orderReducer,
+    profile: profileReducer,
 });
 // const persistedState = localStorage.getItem("pyml")
 //     ? JSON.parse(localStorage.getItem("pyml"))

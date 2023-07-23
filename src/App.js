@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import getProducts from "./redux/actions/productAction";
 import { getPyml } from "./redux/actions/pymlActions";
 import { clearCart, getCartProducts } from "./redux/actions/cartActions";
+import { getProfile } from "./redux/actions/profileActions";
 
 function App() {
     const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function App() {
             dispatch({
                 type: "USER",
             });
+            dispatch(getProfile(user.email));
         } else {
             dispatch({
                 type: "USER",

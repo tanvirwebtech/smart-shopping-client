@@ -19,10 +19,15 @@ export default function Shop() {
         });
         return categorizedPRoducts;
     };
-    console.log(getCategorizedProduct());
 
     return (
-        <div>
+        <div className="container">
+            <div className="heading">
+                <h2 className="section-heading text-center font-semibold py-2 sm:py-4 md:py-4 text-xl md:text-2xl">
+                    Shop
+                </h2>
+            </div>
+            <hr />
             {getCategorizedProduct().map((a) => (
                 <div className="">
                     <ProductSlider

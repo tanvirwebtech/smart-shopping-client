@@ -3,7 +3,6 @@ import { FaCartPlus } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
 const AddToCartBtn = ({ sz, onclick }) => {
-    console.log(onclick);
     const dispatch = useDispatch();
 
     const [lg, md, sm] = [

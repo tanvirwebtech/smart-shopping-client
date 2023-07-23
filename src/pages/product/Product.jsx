@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-    addToCart,
-    quantityMinus,
-    quantityPlus,
-} from "./../../redux/actions/cartActions";
+import { quantityMinus, quantityPlus } from "./../../redux/actions/cartActions";
 import AddToCartBtn from "../../common/buttons/AddToCartBtn";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import ProductSlider from "./../../common/productSlider/ProductSlider";
+import useAddToCart from "../../hooks/useAddToCart";
 
 export default function Product() {
     const products = useSelector((state) => state.products);
-    const cartProduct = useSelector((state) => state.cart);
+    const cartProduct = useSelector((state) => state.cart.cart);
+    const user = useSelector((state) => state.authState.user);
     const [qty, setQty] = useState(1);
     const { id } = useParams();
     const [newProduct, setNewProduct] = useState({});
-
+    const navigate = useNavigate();
+    const { addProductToCart } = useAddToCart();
     useEffect(() => {
         setNewProduct(products.find((pd) => pd._id === id));
     }, [products, id]);
@@ -29,12 +28,17 @@ export default function Product() {
         setQty(e.target.value);
     };
 
+    const handleAddToCart = (id, email) => {
+        console.log(id, email);
+        dispatch(addProductToCart(id, email, navigate));
+    };
+
     return (
-        <div className="relative">
-            <div className="container">
+        <div className="relative mt-8">
+            <div className="container ">
                 <div className="breadcrumbs flex">
                     {
-                        <div className="flex items-center">
+                        <div className="flex items-center text-xs sm:text-sm">
                             <p>
                                 <Link to={"/"}>Home</Link>
                             </p>{" "}
@@ -59,11 +63,11 @@ export default function Product() {
                     </div>
                     <div className="product-details ">
                         {newProduct && (
-                            <h2 className="font-semibold lg:text-3xl sm:text-2xl text-xl">
+                            <h2 className="font-semibold lg:text-3xl sm:text-2xl text-sm">
                                 {newProduct?.productName}{" "}
                             </h2>
                         )}
-                        <div className="rating flex py-2 text-primaryYellow items-center">
+                        <div className="rating text-xs sm:text-sm flex py-2 text-primaryYellow items-center">
                             <FaStar></FaStar>
                             <FaStar></FaStar>
                             <FaStar></FaStar>
@@ -71,15 +75,13 @@ export default function Product() {
                             <FaStar></FaStar>
                             <span>(2 reviews)</span>
                         </div>
-                        <div className="price text-3xl">
+                        <div className="price text-sm sm:text-base lg:text-3xl">
                             <p>${newProduct?.price}</p>
                         </div>
-                        <div className="short-des text-stone-500 py-4">
+                        <div className="short-des text-stone-500 py-4 text-xs sm:text-sm">
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur
-                                adipisicing elit. Aperiam, voluptas odio? Ipsum
-                                magnam magni officiis culpa, totam temporibus
-                                quam porro labore
+                                adipisicing elit. Aperiam, voluptas odio?
                             </p>
                         </div>
                         <div className="customization">
@@ -95,7 +97,7 @@ export default function Product() {
                                 <div className="quantity">
                                     <form action="">
                                         <p className="qty ">
-                                            <label htmlFor="qty">
+                                            {/* <label htmlFor="qty">
                                                 Quantity:
                                             </label>
 
@@ -130,14 +132,13 @@ export default function Product() {
                                                 }
                                             >
                                                 +
-                                            </button>
+                                            </button> */}
                                         </p>
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <div className="product-btns">
-                            <button className="cart-btn mr-2">Buy Now</button>
                             {cartProduct?.includes(newProduct?._id) ? (
                                 <Link to="/cart">
                                     <button className="py-2 px-4 bg-primaryYellow text-gray-900 border-0 text-sm rounded-sm">
@@ -145,24 +146,30 @@ export default function Product() {
                                     </button>
                                 </Link>
                             ) : (
-                                <AddToCartBtn
-                                    sz={"md"}
-                                    onclick={addToCart(newProduct)}
-                                ></AddToCartBtn>
+                                <button
+                                    className="cart-btn"
+                                    onclick={() =>
+                                        handleAddToCart(
+                                            newProduct._id,
+                                            user?.email
+                                        )
+                                    }
+                                >
+                                    Add to cart
+                                </button>
                             )}
                         </div>
                     </div>
-                    <div className="more-info"></div>
                 </div>
-                <div className="more-info">
-                    <Tabs className={"lg:py-8 md:py-4 py-2"}>
+                <div className="more-info ">
+                    <Tabs className={"lg:py-8 md:py-4 py-2 px-2"}>
                         <TabList className={"flex justify-center"}>
                             <Tab
                                 className={
                                     "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                                 }
                             >
-                                <h3 className="md:text-2xl text-xl ">
+                                <h3 className="md:text-2xl sm:text-base text-xs ">
                                     Description
                                 </h3>
                             </Tab>
@@ -171,7 +178,7 @@ export default function Product() {
                                     "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                                 }
                             >
-                                <h3 className=" md:text-2xl text-xl ">
+                                <h3 className=" md:text-2xl text-sm ">
                                     Additional Information
                                 </h3>
                             </Tab>
@@ -180,7 +187,7 @@ export default function Product() {
                                     "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                                 }
                             >
-                                <h3 className=" md:text-2xl text-xl ">
+                                <h3 className=" md:text-2xl text-xs sm:text-base ">
                                     Shipping & Returns
                                 </h3>
                             </Tab>
@@ -189,15 +196,17 @@ export default function Product() {
                                     "home-tab-title text-gray-300 mx-4 cursor-pointer focus:outline-0"
                                 }
                             >
-                                <h3 className=" md:text-2xl text-xl ">
+                                <h3 className=" md:text-2xl text-xs sm:text-base ">
                                     Reviews (2)
                                 </h3>
                             </Tab>
                         </TabList>
                         <div className="border lg:p-4 p-2 mt-4">
                             <TabPanel>
-                                <h4>Product Information</h4>
-                                <p>
+                                <h4 className="font-medium md:text-2xl text-sm pb-2">
+                                    Product Information
+                                </h4>
+                                <p className="text-xs sm:text-sm">
                                     Lorem ipsum dolor sit, amet consectetur
                                     adipisicing elit. Quasi pariatur, nesciunt
                                     ratione quod possimus rerum voluptatum,
@@ -218,8 +227,10 @@ export default function Product() {
                                 </p>
                             </TabPanel>
                             <TabPanel>
-                                <h4>Information</h4>
-                                <p>
+                                <h4 className="font-medium md:text-2xl text-sm pb-2">
+                                    Information
+                                </h4>
+                                <p className="text-xs sm:text-sm">
                                     Lorem, ipsum dolor sit amet consectetur
                                     adipisicing elit. Nesciunt architecto eum
                                     rerum quo delectus. Voluptate assumenda vero
@@ -228,7 +239,7 @@ export default function Product() {
                                     Voluptas!
                                 </p>
                                 <h4>Brand</h4>
-                                <p>
+                                <p className="text-xs sm:text-sm">
                                     Lorem ipsum dolor, sit amet consectetur
                                     adipisicing elit. Tempora, cum.
                                 </p>
@@ -240,8 +251,10 @@ export default function Product() {
                                 </ul>
                             </TabPanel>
                             <TabPanel>
-                                <h4>Delivery & Return</h4>
-                                <p>
+                                <h4 className="font-medium md:text-2xl text-sm pb-2">
+                                    Delivery & Return
+                                </h4>
+                                <p className="text-xs sm:text-sm">
                                     Delivery & returns We deliver to over 100
                                     countries around the world. For full details
                                     of the delivery options we offer, please
@@ -254,7 +267,9 @@ export default function Product() {
                                 </p>
                             </TabPanel>
                             <TabPanel>
-                                <h4>Reviews (2)</h4>
+                                <h4 className="font-medium md:text-2xl text-sm pb-2">
+                                    Reviews (2)
+                                </h4>
                                 <div className="grid grid-cols-6 gap-2">
                                     <div className="col-span-1">
                                         <div className="reviewer">
@@ -308,7 +323,7 @@ export default function Product() {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="product-info flex items-center">
                                 <div className="product-img">
-                                    <div className="img w-20">
+                                    <div className="img w-12 md:w-20">
                                         <img
                                             src={newProduct?.img}
                                             alt=""
@@ -317,14 +332,14 @@ export default function Product() {
                                     </div>
                                 </div>
                                 <div className="product-name ml-4">
-                                    <h3 className="text-2xl font-medium">
+                                    <h3 className="text-xs md:text-2xl font-medium">
                                         {newProduct?.productName}{" "}
                                     </h3>
                                 </div>
                             </div>
                             <div className="flex items-center justify-end">
                                 <div className="price">
-                                    <h4 className="text-2xl">
+                                    <h4 className="text-xs md:text-2xl">
                                         ${newProduct?.price}
                                     </h4>
                                 </div>
@@ -338,12 +353,18 @@ export default function Product() {
                                             </button>
                                         </Link>
                                     ) : (
-                                        <AddToCartBtn
-                                            sz={"lg"}
+                                        <button
+                                            className="cart-btn"
                                             onClick={() =>
-                                                dispatch(addToCart())
+                                                handleAddToCart(
+                                                    newProduct._id,
+                                                    user?.email
+                                                )
                                             }
-                                        />
+                                        >
+                                            {" "}
+                                            Add to Cart
+                                        </button>
                                     )}
                                 </div>
                             </div>

@@ -5,6 +5,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home/Home";
 import { Suspense } from "react";
 import PrivateRoute from "./routes/privateRoute/PrivateRoute";
+import Checkout from "./pages/checkout/Checkout";
+import Spinner from "./common/spinners/Spinner";
 
 const About = React.lazy(() => import("./pages/about/About"));
 const Shop = React.lazy(() => import("./pages/shop/Shop"));
@@ -20,8 +22,14 @@ export default function TheLayout() {
             <header className="w-full">
                 <Header></Header>
             </header>
-            <main className="mt-40">
-                <Suspense fallback={<>Loading</>}>
+            <main className="mt-32  md:mt-44">
+                <Suspense
+                    fallback={
+                        <>
+                            <Spinner></Spinner>
+                        </>
+                    }
+                >
                     <Routes>
                         <Route path="/" element={<Home />}></Route>
                         <Route path="/about" element={<About />}></Route>
@@ -34,6 +42,14 @@ export default function TheLayout() {
                             element={
                                 <PrivateRoute>
                                     <Profile />
+                                </PrivateRoute>
+                            }
+                        ></Route>
+                        <Route
+                            path="/checkout"
+                            element={
+                                <PrivateRoute>
+                                    <Checkout />
                                 </PrivateRoute>
                             }
                         ></Route>

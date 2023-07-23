@@ -10,7 +10,10 @@ import {
 import auth from "../../firebase/init.firebase";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Routes, useNavigate } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+
+// const router = createBrowserRouter(routes, { basename: "/" });
 
 // REGISTER WITH EMAIL AND PASS
 export const registerUser = (userData) => {
@@ -63,12 +66,12 @@ export const registerUser = (userData) => {
 
 // LOGIN WITH EMAIL PASS //
 
-export const loginWithEmail = (userData, location) => {
+export const loginWithEmail = (userData, location, navigate) => {
     return (dispatch) => {
         dispatch({
             type: "AUTH_PENDING",
         });
-        // const from = location.state?.from?.pathname;
+        const from = location.state?.from?.pathname;
 
         signInWithEmailAndPassword(auth, userData.email, userData.loginPassword)
             .then((userCredential) => {
@@ -77,7 +80,8 @@ export const loginWithEmail = (userData, location) => {
                     payload: userCredential.user,
                 });
                 Swal.fire("Success!", "You successfully logged in!", "success");
-                // navigate(from, { replace: true });
+                // navigate(from, );
+                navigate(from, { replace: true });
             })
             .catch((error) => {
                 dispatch({
@@ -99,7 +103,6 @@ export const googleSignIn = () => {
                 axios
                     .post("http://localhost:5000/registerUser", result.user)
                     .then(function (response) {
-                        console.log(response);
                         dispatch({
                             type: "LOGIN_SUCCESS",
                             payload: result.user,

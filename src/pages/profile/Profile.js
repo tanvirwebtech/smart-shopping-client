@@ -8,6 +8,8 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 
 const Profile = () => {
     const authState = useSelector((state) => state.authState);
+    const profile = useSelector((state) => state.profile.profile);
+
     let navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -49,16 +51,16 @@ const Profile = () => {
                         />
                         <div>
                             <h1 className="text-4xl font-bold text-gray-800 mb-2">
-                                {user?.displayName}
+                                {profile ? profile.name : user?.displayName}
                             </h1>
                             <p className="text-gray-700 mb-1">
                                 Email: <span>{user?.email}</span>
                             </p>
                             <p className="text-gray-700 mb-1">
-                                Contact No.: 123-456-7890
+                                Contact No.: {profile?.phone}
                             </p>
                             <p className="text-gray-700">
-                                Address: 123 Main St, Anytown, USA
+                                Address: {profile?.addresses[1]}
                             </p>
                         </div>
                     </div>

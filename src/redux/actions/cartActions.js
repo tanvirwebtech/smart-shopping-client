@@ -1,12 +1,6 @@
-import store from "../store";
-
 // add to cart
 export const addToCart = (productID, email) => {
-    console.log(productID);
-
     return (dispatch) => {
-        console.log(email);
-
         // dispatch({ type: "CART_LOADING_TRUE" });
         const cart = { id: productID, qty: 1 };
 
@@ -21,7 +15,6 @@ export const addToCart = (productID, email) => {
         // setLocalCart(productID);
         dispatch({ type: "ADD_TO_CART", payload: productID });
         dispatch({ type: "CART_LOADING_FALSE" });
-        window.location.reload();
     };
 
     // const products = store.getState().products;
@@ -81,13 +74,10 @@ export const addToCart = (productID, email) => {
 };
 
 export const getCartProducts = (payload) => {
-    console.log(payload);
     return async (dispatch) => {
-        console.log(payload);
-
         const res = await fetch(`http://localhost:5000/getCart/${payload}`);
         const data = await res.json();
-        console.log(data);
+
         dispatch({
             type: "CART",
             payload: data,
@@ -132,8 +122,8 @@ export function clearCart() {
 }
 export function quantityPlus(id) {
     // const localCart =  getLocalCart()
-    // return { type: "QUANTITY_INCREASE", payload: product._id };
+    return { type: "QUANTITY_INCREASE", payload: id };
 }
-export function quantityMinus(product) {
-    return { type: "QUANTITY_DECREASE", payload: product._id };
+export function quantityMinus(id) {
+    return { type: "QUANTITY_DECREASE", payload: id };
 }

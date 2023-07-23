@@ -13,16 +13,12 @@ const Pylm = () => {
         pylmIds.productIds.forEach((element) => {
             products.forEach((pd_el) => {
                 if (element === pd_el._id) {
-                    console.log(sugProducts);
                     const newSug = [...sugProducts, pd_el];
                     setSugProducts(newSug);
-                    console.log(newSug);
                 }
             });
         });
     }, [pylmIds, products]);
-
-    console.log(sugProducts);
 
     return (
         <div>

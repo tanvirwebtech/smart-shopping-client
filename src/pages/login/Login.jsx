@@ -4,7 +4,7 @@ import RegisterModal from "./RegisterModal";
 import { useDispatch, useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import { googleSignIn, loginWithEmail } from "../../redux/actions/authActions";
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate, redirect, useLocation, useNavigate } from "react-router-dom";
 
 export default function Login() {
     const authState = useSelector((state) => state.authState);
@@ -13,6 +13,8 @@ export default function Login() {
     if (authState.user) {
         <Navigate to="/" replace={true} />;
     }
+    const navigate = useNavigate();
+    const location = useLocation();
     const {
         register,
         reset,
@@ -20,7 +22,7 @@ export default function Login() {
         formState: { errors },
     } = useForm();
     const onSubmit = (data) => {
-        dispatch(loginWithEmail(data)); //data: {email, loginPassword}
+        dispatch(loginWithEmail(data, location, navigate)); //data: {email, loginPassword}
         reset();
     };
     const toggleModal = () => {

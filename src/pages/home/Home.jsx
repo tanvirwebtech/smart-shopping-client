@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Home.css";
 import ProductSlider, {
-    SampleNextArrow,
-    SamplePrevArrow,
+    NextArrow,
+    PrevArrow,
 } from "./../../common/productSlider/ProductSlider";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Slider from "react-slick";
 import banner1 from "../../assets/images/banners/3.jpg";
@@ -21,12 +21,8 @@ import Deals from "./Deals";
 import CompanyFeatures from "./CompanyFeatures";
 import { getPyml } from "../../redux/actions/pymlActions";
 import { BsArrowRight } from "react-icons/bs";
-import { getCartProducts } from "../../redux/actions/cartActions";
 export default function Home() {
-    const dispatch = useDispatch();
-    const user = useSelector((state) => state.authState);
     const products = useSelector((state) => state.products);
-    // const prod = useSelector((state) => state.persistedState);
 
     getPyml();
 
@@ -37,8 +33,8 @@ export default function Home() {
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
         responsive: [
             {
                 breakpoint: 992,
@@ -46,34 +42,33 @@ export default function Home() {
                     slidesToShow: 1,
                     slidesToScroll: 1,
 
-                    nextArrow: <SampleNextArrow />,
-                    prevArrow: <SamplePrevArrow />,
+                    nextArrow: <NextArrow />,
+                    prevArrow: <PrevArrow />,
                 },
             },
             {
                 breakpoint: 600,
                 settings: {
-                    dots: false,
+                    dots: true,
                     infinite: true,
                     speed: 500,
                     slidesToShow: 1,
                     slidesToScroll: 1,
-
-                    nextArrow: <SampleNextArrow />,
-                    prevArrow: <SamplePrevArrow />,
+                    nextArrow: false,
+                    prevArrow: false,
                 },
             },
             {
                 breakpoint: 480,
                 settings: {
-                    dots: false,
+                    dots: true,
                     infinite: true,
                     speed: 500,
                     slidesToShow: 1,
                     slidesToScroll: 1,
 
-                    nextArrow: <SampleNextArrow />,
-                    prevArrow: <SamplePrevArrow />,
+                    nextArrow: false,
+                    prevArrow: false,
                 },
             },
         ],
@@ -108,12 +103,14 @@ export default function Home() {
                                         className="w-full"
                                     />
                                     <div className="content absolute top-1 left-1">
-                                        <p className="ml-4">Top Product</p>
-                                        <h4 className="font-semibold text-xl ml-4">
+                                        <p className="ml-4 text-xs sm:text-sm md:text-base">
+                                            Top Product
+                                        </p>
+                                        <h4 className="font-semibold text-base sm:text-xl ml-4">
                                             Edifier <br /> Stereo Bluetooth
                                         </h4>
                                         <Link to="all-products">
-                                            <button className="py-1 px-4 text-primaryYellow hover:bg-primaryYellow hover:text-siteGray-100 duration-300 leading-4 rounded-full flex items-center">
+                                            <button className="py-1 px-4 text-primaryYellow hover:bg-primaryYellow hover:text-siteGray-100 duration-300 leading-4 rounded-full flex items-center text-xs sm:text-sm">
                                                 {" "}
                                                 <span>Shop Now</span>{" "}
                                                 <BsArrowRight className="ml-2" />
@@ -128,12 +125,14 @@ export default function Home() {
                                         className="w-full"
                                     />
                                     <div className="content absolute top-1 left-1">
-                                        <p className="ml-4">Clearance</p>
-                                        <h4 className="font-semibold text-xl ml-4">
+                                        <p className="ml-4 text-xs sm:text-sm md:text-base">
+                                            Clearance
+                                        </p>
+                                        <h4 className="font-semibold text-base sm:text-xl ml-4">
                                             GoPro - Fusion 3160 <br /> Save $70
                                         </h4>
                                         <Link to="all-products">
-                                            <button className="py-1 px-4 text-primaryYellow hover:bg-primaryYellow hover:text-siteGray-100 duration-300 leading-4 rounded-full flex items-center">
+                                            <button className="py-1 px-4 text-primaryYellow hover:bg-primaryYellow hover:text-siteGray-100 duration-300 leading-4 rounded-full flex items-center text-xs sm:text-sm">
                                                 {" "}
                                                 <span>Shop Now</span>{" "}
                                                 <BsArrowRight className="ml-2" />
@@ -148,13 +147,15 @@ export default function Home() {
                                         className="w-full"
                                     />
                                     <div className="content absolute top-1 left-1">
-                                        <p className="ml-4">Featured</p>
-                                        <h4 className="font-semibold text-xl ml-4">
+                                        <p className="ml-4 text-xs sm:text-sm md:text-base">
+                                            Featured
+                                        </p>
+                                        <h4 className="font-semibold  text-base sm:text-xl  ml-4">
                                             Apple Watch 4 <br /> Our hottest
                                             Deal
                                         </h4>
                                         <Link to="/all-products">
-                                            <button className="py-1 px-4 text-primaryYellow hover:bg-primaryYellow hover:text-siteGray-100 duration-300 leading-4 rounded-full flex items-center">
+                                            <button className="py-1 px-4 text-primaryYellow hover:bg-primaryYellow hover:text-siteGray-100 duration-300 leading-4 rounded-full flex items-center text-xs sm:text-sm">
                                                 {" "}
                                                 <span>Shop Now</span>{" "}
                                                 <BsArrowRight className="ml-2" />

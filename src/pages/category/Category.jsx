@@ -8,10 +8,9 @@ export default function Category() {
     const products = useSelector((state) => state.products);
 
     const getCategoryProducts = () => {
-        console.log(products);
         return products.filter((pd) => pd.category === category);
     };
-    console.log(getCategoryProducts());
+
     return (
         <div className="container">
             <div className="page-heading">

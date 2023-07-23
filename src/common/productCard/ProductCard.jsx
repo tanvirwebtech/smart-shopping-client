@@ -1,27 +1,37 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../redux/actions/cartActions";
 import { addToPYML } from "../../redux/actions/pymlActions";
 import ViewCartBtn from "../buttons/ViewCartBtn";
-import { FaCartPlus } from "react-icons/fa";
+import { FaCartPlus, FaHeart } from "react-icons/fa";
+import Spinner from "../spinners/Spinner";
+import Swal from "sweetalert2";
+import useAddToCart from "../../hooks/useAddToCart";
 export default function ProductCard(props) {
     const { product } = props;
     const dispatch = useDispatch();
-    const cartProduct = useSelector((state) => state.cart);
+    const cartProduct = useSelector((state) => state.cart.cart);
     const user = useSelector((state) => state.authState.user);
     const loading = useSelector((state) => state.siteLoading.loading);
-    console.log(cartProduct[0]);
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { addProductToCart } = useAddToCart();
     if (loading) {
-        return <p>Loading...</p>;
+        return <Spinner></Spinner>;
     }
+
+    const handleAddToCart = (id, email) => {
+        console.log(id, email);
+        dispatch(addProductToCart(id, email, navigate));
+    };
     return (
         <div className="product-card  h-full border">
             <div
                 className="product-wrapper h-full"
                 onClick={() => addToPYML(product?._id)}
             >
-                <div className="product h-full flex flex-col justify-between p-2">
+                <div className="product h-full flex flex-col justify-between sm:p-2 p-0">
                     <div className="product-img">
                         <img
                             src={product?.img}
@@ -35,27 +45,27 @@ export default function ProductCard(props) {
                         </div>
                         <div className="title my-2">
                             <Link to={`/product/${product?._id}`}>
-                                <h4 className="font-medium text-xl">
+                                <h4 className="font-medium text-xs sm:text-base lg:text-xl">
                                     {product?.productName}
                                 </h4>
                             </Link>
                         </div>
                         <div className="price-rating mt-2 flex justify-between">
                             <div className="price text-primaryYellow font-medium">
-                                <h4>
+                                <h4 className="text-xs sm:text-base">
                                     Price: $<span>{product?.price}</span>
                                 </h4>
                             </div>
                             <div className="rating">
-                                <h4>
+                                <h4 className="text-xs sm:text-base">
                                     Rating: <span>5</span>
                                 </h4>
                             </div>
                         </div>
                     </div>
-                    <div className="product-footer p-2 flex justify-between">
-                        <div className="add-to-cart-btn mr-2">
-                            {cartProduct[0]?.find(
+                    <div className="product-footer p-0 sm:p-2 flex justify-between items-center flex-col md:flex-row">
+                        <div className="add-to-cart-btn  mb-1 md:mr-2">
+                            {cartProduct?.find(
                                 (pd) => pd.id === product?._id
                             ) ? (
                                 <ViewCartBtn sz={"sm"}></ViewCartBtn>
@@ -63,8 +73,9 @@ export default function ProductCard(props) {
                                 <button
                                     className="cart-btn"
                                     onClick={() =>
-                                        dispatch(
-                                            addToCart(product?._id, user?.email)
+                                        handleAddToCart(
+                                            product?._id,
+                                            user?.email
                                         )
                                     }
                                 >
@@ -93,7 +104,10 @@ export default function ProductCard(props) {
                         </div>
                         <div className="add-to-wishlist-btn">
                             <button className="cart-btn">
-                                Add to Wishlist
+                                <div className="flex items-center">
+                                    Add to Wishlist
+                                    <FaHeart className="ml-2" />
+                                </div>
                             </button>
                         </div>
                     </div>

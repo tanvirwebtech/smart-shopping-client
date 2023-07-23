@@ -6,8 +6,11 @@ import {
     quantityPlus,
     removeFromCart,
 } from "../../redux/actions/cartActions";
+import { Link } from "react-router-dom";
+import { addOrder } from "../../redux/actions/orderAction";
+import Spinner from "../../common/spinners/Spinner";
 export default function Cart() {
-    const cart = useSelector((state) => state.cart[0]);
+    const cart = useSelector((state) => state.cart.cart);
     const products = useSelector((state) => state.products);
     const user = useSelector((state) => state.authState.user);
     const [localCart, setLocalCart] = useState([]);
@@ -28,7 +31,6 @@ export default function Cart() {
 
     useEffect(() => {
         if (cart?.length) {
-            console.log(cart);
             let newCart = [];
             if (products.length) {
                 cart.forEach((el) => {
@@ -39,13 +41,15 @@ export default function Cart() {
                 });
             }
             setLocalCart(newCart);
-            console.log(newCart);
         } else {
             clearCart();
             setLocalCart([]);
         }
     }, [products, cart]);
-    console.log(localCart);
+
+    const handleCheckOut = () => {
+        dispatch(addOrder(localCart, subtotal, user.email));
+    };
 
     return (
         <div className="container">
@@ -63,7 +67,11 @@ export default function Cart() {
                         </h4>
                         <hr />
                         <div className="cart-products">
-                            {!localCart?.length && <>Loading...</>}
+                            {!localCart?.length && (
+                                <>
+                                    <Spinner></Spinner>
+                                </>
+                            )}
                             {localCart?.map((cartProduct) => (
                                 <div
                                     key={cartProduct._id}
@@ -103,7 +111,7 @@ export default function Cart() {
                                                         onClick={() =>
                                                             dispatch(
                                                                 quantityMinus(
-                                                                    cartProduct
+                                                                    cartProduct._id
                                                                 )
                                                             )
                                                         }
@@ -113,9 +121,7 @@ export default function Cart() {
                                                     <input
                                                         name="qty"
                                                         id="qty"
-                                                        value={
-                                                            cartProduct.quantity
-                                                        }
+                                                        value={cartProduct.qty}
                                                         readOnly
                                                         className="w-3/12 mx-2 border p-2"
                                                     />
@@ -125,7 +131,7 @@ export default function Cart() {
                                                         onClick={() =>
                                                             dispatch(
                                                                 quantityPlus(
-                                                                    cartProduct
+                                                                    cartProduct._id
                                                                 )
                                                             )
                                                         }
@@ -206,9 +212,14 @@ export default function Cart() {
                             </form>
                         </div>
                         <div className="checkout">
-                            <button className="capitalize w-full px-4 py-4 bg-orange-500 text-siteGray-400 font-semibold mt-4 hover:shadow-lg duration-300 hover:bg-orange-800 hover:text-white">
-                                Proceed to checkout
-                            </button>
+                            <Link to={"/checkout"}>
+                                <button
+                                    className="capitalize w-full px-4 py-4 bg-orange-500 text-siteGray-400 font-semibold mt-4 hover:shadow-lg duration-300 hover:bg-orange-800 hover:text-white"
+                                    onClick={handleCheckOut}
+                                >
+                                    Proceed to checkout
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

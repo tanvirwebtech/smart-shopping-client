@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { editProfile } from "../../redux/actions/profileActions";
 
 const EditProfileModal = ({ isOpen, onClose, user }) => {
     const [name, setName] = useState("");
+    const dispatch = useDispatch();
     useEffect(() => {
         setName(user.displayName);
     }, []);
@@ -16,8 +19,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
     } = useForm();
 
     const onSubmit = (data) => {
-        console.log(data);
-
+        dispatch(editProfile(data));
         // handle form data here
         onClose();
     };
@@ -95,7 +97,9 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         type="email"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
                                         value={user.email}
-                                        disabled
+                                        onChange={handleOnChange}
+                                        {...register("email")}
+                                        readOnly
                                     />
                                 </div>
                                 <div className="mb-4">

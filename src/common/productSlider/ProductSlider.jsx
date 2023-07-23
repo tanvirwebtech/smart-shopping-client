@@ -2,11 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import ProductCard from "./../productCard/ProductCard";
-export function SamplePrevArrow(props) {
+
+export function PrevArrow(props) {
     const { onClick } = props;
     return (
         <div
-            className="p-2 inline-block z-40 bg-siteGray-100 rounded-full absolute left-6 top-1/2 -translate-y-1/2 "
+            className="p-2 inline-block z-40 hover:bg-siteGray-100 hover:cursor-pointer duration-300 rounded-full border border-primaryYellow bg-transparent absolute -left-8 top-1/2 -translate-y-1/2 "
             onClick={onClick}
         >
             {" "}
@@ -27,11 +28,11 @@ export function SamplePrevArrow(props) {
         </div>
     );
 }
-export function SampleNextArrow(props) {
+export function NextArrow(props) {
     const { onClick } = props;
     return (
         <div
-            className="p-2 inline-block absolute bg-siteGray-100 rounded-full right-6 top-1/2 -translate-y-1/2"
+            className="p-2 inline-block absolute hover:bg-siteGray-100 hover:cursor-pointer duration-300 rounded-full border border-primaryYellow bg-transparent -right-6 top-1/2 -translate-y-1/2"
             onClick={onClick}
         >
             <svg
@@ -62,8 +63,8 @@ export default function ProductSlider(props) {
         slidesToShow: 4,
         slidesToScroll: 1,
 
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
         responsive: [
             {
                 breakpoint: 992,
@@ -71,11 +72,11 @@ export default function ProductSlider(props) {
                     dots: false,
                     infinite: true,
                     speed: 500,
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
 
-                    nextArrow: <SampleNextArrow />,
-                    prevArrow: <SamplePrevArrow />,
+                    nextArrow: <NextArrow />,
+                    prevArrow: <PrevArrow />,
                 },
             },
             {
@@ -84,11 +85,11 @@ export default function ProductSlider(props) {
                     dots: false,
                     infinite: true,
                     speed: 500,
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
 
-                    nextArrow: <SampleNextArrow />,
-                    prevArrow: <SamplePrevArrow />,
+                    nextArrow: <NextArrow />,
+                    prevArrow: <PrevArrow />,
                 },
             },
             {
@@ -97,31 +98,37 @@ export default function ProductSlider(props) {
                     dots: false,
                     infinite: true,
                     speed: 500,
-                    slidesToShow: 1,
+                    slidesToShow: 2,
                     slidesToScroll: 1,
 
-                    nextArrow: <SampleNextArrow />,
-                    prevArrow: <SamplePrevArrow />,
+                    nextArrow: <NextArrow />,
+                    prevArrow: <PrevArrow />,
                 },
             },
         ],
     };
+
     return (
-        <div className="container mt-10">
-            <div className="section-heading mt-4 flex justify-between items-center">
-                <h2 className="font-bold text-4xl p-2 text-siteGray-400 capitalize">
+        <div className="container mt-4 sm:mt-6 md:mt-10">
+            <div className="section-heading mt-2 flex justify-between items-center">
+                <h2 className="font-bold text-xl sm:text-2xl lg:text-4xl p-2 text-siteGray-400 capitalize">
                     {categoryHeading ? categoryHeading + "s" : sectionHeading}
                 </h2>
                 {categoryHeading ? (
                     <Link to={`/products/${categoryHeading}`}>
-                        <span className="text-primaryYellow">See All</span>
+                        <span className="text-primaryYellow text-xs  sm:text-sm md:text-base">
+                            See All
+                        </span>
                     </Link>
                 ) : (
                     <Link to={`/all-products`}>
-                        <span className="text-primaryYellow">See All</span>
+                        <span className="text-primaryYellow text-xs sm:text-sm md:text-base">
+                            See All
+                        </span>
                     </Link>
                 )}
             </div>
+
             <div>
                 {products.length > 4 ? (
                     <Slider {...settings}>
@@ -134,7 +141,7 @@ export default function ProductSlider(props) {
                         ))}
                     </Slider>
                 ) : (
-                    <div className="grid lg:grid-cols-4 md:grid-clos-3 sm:grid-cols-2 grid-cols-1 md:gap-4 lg:gap-8 gap-2">
+                    <div className="grid lg:grid-cols-4 md:grid-clos-3 sm:grid-cols-2 grid-cols-2 md:gap-4 lg:gap-8 gap-2">
                         {products.map((product) => (
                             <ProductCard
                                 key={product._id}

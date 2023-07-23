@@ -8,7 +8,7 @@ export default function SearchBox() {
         setSearchToggle(!searchToggle);
     };
     return (
-        <div className="flex w-full mx-2 justify-end">
+        <div className="flex w-1/3 sm:w-full mx-2 justify-end">
             <div className="search-btn inline-block sm:hidden text-right">
                 <button
                     className="flex items-center"
