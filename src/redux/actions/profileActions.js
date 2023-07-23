@@ -1,7 +1,7 @@
 export const editProfile = (userData) => {
     return async (dispatch) => {
         const res = await fetch(
-            `http://localhost:5000/users/${userData.email}`,
+            `https://smart-server-pi.vercel.app/users/${userData.email}`,
             {
                 method: "PUT",
                 body: JSON.stringify(userData),
@@ -20,7 +20,9 @@ export const editProfile = (userData) => {
 };
 export const getProfile = (email) => {
     return async (dispatch) => {
-        const res = await fetch(`http://localhost:5000/getUsers/${email}`);
+        const res = await fetch(
+            `https://smart-server-pi.vercel.app/getUsers/${email}`
+        );
         const data = await res.json();
 
         dispatch({

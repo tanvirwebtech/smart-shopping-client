@@ -29,7 +29,10 @@ export const registerUser = (userData) => {
         )
             .then((userCredential) => {
                 axios
-                    .post("http://localhost:5000/registerUser", userData)
+                    .post(
+                        "https://smart-server-pi.vercel.app/registerUser",
+                        userData
+                    )
                     .then(function (response) {
                         updateProfile(auth.currentUser, {
                             displayName: userData.name,
@@ -101,7 +104,10 @@ export const googleSignIn = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 axios
-                    .post("http://localhost:5000/registerUser", result.user)
+                    .post(
+                        "https://smart-server-pi.vercel.app/registerUser",
+                        result.user
+                    )
                     .then(function (response) {
                         dispatch({
                             type: "LOGIN_SUCCESS",
@@ -146,7 +152,7 @@ export const logout = () => {
 };
 
 // axios
-//     .post("http://localhost:5000/registerUser", userData)
+//     .post("https://smart-server-pi.vercel.app/registerUser", userData)
 //     .then((res) =>
 //         dispatch({
 //             type: "REG_SUCCESS",

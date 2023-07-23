@@ -4,7 +4,7 @@ export const addToCart = (productID, email) => {
         // dispatch({ type: "CART_LOADING_TRUE" });
         const cart = { id: productID, qty: 1 };
 
-        fetch(`http://localhost:5000/cart/${email}`, {
+        fetch(`https://smart-server-pi.vercel.app/cart/${email}`, {
             method: "PUT",
             body: JSON.stringify(cart),
             headers: {
@@ -75,7 +75,9 @@ export const addToCart = (productID, email) => {
 
 export const getCartProducts = (payload) => {
     return async (dispatch) => {
-        const res = await fetch(`http://localhost:5000/getCart/${payload}`);
+        const res = await fetch(
+            `https://smart-server-pi.vercel.app/getCart/${payload}`
+        );
         const data = await res.json();
 
         dispatch({
@@ -89,7 +91,7 @@ export const getCartProducts = (payload) => {
 //     return async (dispatch) => {
 //         console.log();
 
-//         const res = await fetch(`http://localhost:5000/getCart/${payload}`);
+//         const res = await fetch(`https://smart-server-pi.vercel.app/getCart/${payload}`);
 //         const data = await res.json();
 //         console.log(data);
 //         dispatch({
@@ -103,7 +105,7 @@ export function removeFromCart(productID, email) {
     return async (dispatch) => {
         const cart = { id: productID, del: true };
 
-        fetch(`http://localhost:5000/cart/${email}`, {
+        fetch(`https://smart-server-pi.vercel.app/cart/${email}`, {
             method: "PUT",
             body: JSON.stringify(cart),
             headers: {

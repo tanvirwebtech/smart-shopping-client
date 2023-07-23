@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import ProductCard from "./../productCard/ProductCard";
-
+import "./ProductSlider.css";
 export function PrevArrow(props) {
     const { onClick } = props;
     return (
@@ -63,8 +63,8 @@ export default function ProductSlider(props) {
         slidesToShow: 4,
         slidesToScroll: 1,
 
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />,
+        nextArrow: false,
+        prevArrow: false,
         responsive: [
             {
                 breakpoint: 992,
@@ -88,8 +88,8 @@ export default function ProductSlider(props) {
                     slidesToShow: 3,
                     slidesToScroll: 1,
 
-                    nextArrow: <NextArrow />,
-                    prevArrow: <PrevArrow />,
+                    nextArrow: false,
+                    prevArrow: false,
                 },
             },
             {
@@ -101,8 +101,8 @@ export default function ProductSlider(props) {
                     slidesToShow: 2,
                     slidesToScroll: 1,
 
-                    nextArrow: <NextArrow />,
-                    prevArrow: <PrevArrow />,
+                    nextArrow: false,
+                    prevArrow: false,
                 },
             },
         ],

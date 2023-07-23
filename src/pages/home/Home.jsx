@@ -95,7 +95,7 @@ export default function Home() {
                                     </div>
                                 </Slider>
                             </div>
-                            <div className="col-span-1">
+                            <div className="col-span-1 mt-4 md:mt-0">
                                 <div className="side-intro-banner relative pb-2">
                                     <img
                                         src={sideBanner1}
