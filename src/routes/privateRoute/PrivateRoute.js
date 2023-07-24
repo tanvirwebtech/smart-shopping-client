@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
     const authUser = useSelector((state) => state.authState.user);
     const loading = useSelector((state) => state.siteLoading.loading);
     const location = useLocation();
-    console.log(location);
+
     if (loading) {
         return (
             <>

@@ -1,24 +1,28 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Product from "./../../pages/product/Product";
+
 import { useEffect } from "react";
 import ProductSlider from "./../productSlider/ProductSlider";
 import { useState } from "react";
 
-const Pylm = () => {
-    const pylmIds = useSelector((state) => state.pymlList);
+const Pylm = ({ id }) => {
     const products = useSelector((state) => state.products);
     const [sugProducts, setSugProducts] = useState([]);
+
     useEffect(() => {
-        pylmIds.productIds.forEach((element) => {
-            products.forEach((pd_el) => {
-                if (element === pd_el._id) {
-                    const newSug = [...sugProducts, pd_el];
-                    setSugProducts(newSug);
+        if (products.length > 0) {
+            let selectedProduct;
+            products.forEach((element) => {
+                if (element._id === id) {
+                    selectedProduct = element;
                 }
             });
-        });
-    }, [pylmIds, products]);
+            const filterProducts = products.filter(
+                (pd) => pd.category === selectedProduct.category
+            );
+            setSugProducts(filterProducts);
+        }
+    }, [products, id]);
 
     return (
         <div>
@@ -28,17 +32,3 @@ const Pylm = () => {
 };
 
 export default Pylm;
-
-// const arr1 = [2, 3, 56, 78, 8, 7, 8];
-// const arr2 = [1, 2, 34, 5, 6, 7, 8, 9, 10];
-// let arr3 = [];
-// arr1.forEach((el) => {
-//     arr2.forEach((ele) => {
-//         if (el === ele) {
-//             console.log(ele);
-//             const newarr = [...arr3, ele];
-//             arr3 = newarr;
-//         }
-//     });
-// });
-// console.log(arr3);

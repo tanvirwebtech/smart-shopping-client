@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { quantityMinus, quantityPlus } from "./../../redux/actions/cartActions";
-import AddToCartBtn from "../../common/buttons/AddToCartBtn";
 import { IoIosArrowForward } from "react-icons/io";
 import { FaStar } from "react-icons/fa";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import ProductSlider from "./../../common/productSlider/ProductSlider";
 import useAddToCart from "../../hooks/useAddToCart";
+import Pylm from "./../../common/productYouMayLike.js/Pylm";
 
 export default function Product() {
     const products = useSelector((state) => state.products);
     const cartProduct = useSelector((state) => state.cart.cart);
     const user = useSelector((state) => state.authState.user);
-    const [qty, setQty] = useState(1);
+
     const { id } = useParams();
     const [newProduct, setNewProduct] = useState({});
     const navigate = useNavigate();
@@ -24,12 +22,7 @@ export default function Product() {
 
     const dispatch = useDispatch();
 
-    const handleQty = (e) => {
-        setQty(e.target.value);
-    };
-
     const handleAddToCart = (id, email) => {
-        console.log(id, email);
         dispatch(addProductToCart(id, email, navigate));
     };
 
@@ -92,50 +85,6 @@ export default function Product() {
                                           <span>{col + ", "}</span>
                                       ))
                                     : ""}
-                            </div>
-                            <div className="quantity py-4">
-                                <div className="quantity">
-                                    <form action="">
-                                        <p className="qty ">
-                                            {/* <label htmlFor="qty">
-                                                Quantity:
-                                            </label>
-
-                                            <button
-                                                className="qtyminus ml-2 py-2 px-4 bg-siteGray-100"
-                                                aria-hidden="true"
-                                                type="button"
-                                                onClick={() =>
-                                                    dispatch(
-                                                        quantityMinus(
-                                                            newProduct
-                                                        )
-                                                    )
-                                                }
-                                            >
-                                                -
-                                            </button>
-                                            <input
-                                                name="qty"
-                                                id="qty"
-                                                value={qty}
-                                                onChange={handleQty}
-                                                className="w-11 mx-2 border p-2"
-                                            />
-                                            <button
-                                                className="qtyplus py-2 px-4 bg-siteGray-100"
-                                                type="button"
-                                                onClick={() =>
-                                                    dispatch(
-                                                        quantityPlus(newProduct)
-                                                    )
-                                                }
-                                            >
-                                                +
-                                            </button> */}
-                                        </p>
-                                    </form>
-                                </div>
                             </div>
                         </div>
                         <div className="product-btns">
@@ -311,10 +260,11 @@ export default function Product() {
             </section> */}
             <section>
                 <div className="container">
-                    <h2 className="text-center font-semibold text-3xl ">
-                        You may also like
+                    <h2 className="text-center font-semibold text-sm sm:text-base md:text-xl lg:text-3xl capitalize">
+                        Products you may like
                     </h2>
-                    <ProductSlider products={products}></ProductSlider>
+                    <Pylm id={id}></Pylm>
+                    {/* <ProductSlider products={products}></ProductSlider> */}
                 </div>
             </section>
             <div className="product-footer bg-slate-100 w-full fixed bottom-0 left-0">

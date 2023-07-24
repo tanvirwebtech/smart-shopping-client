@@ -27,7 +27,6 @@ export const getPyml = () => {
     return (dispatch) => {
         if (getPYML) {
             const productIds = localStorage.getItem("pyml");
-
             dispatch({
                 type: "ADD_TO_PYML_LIS",
                 payload: JSON.parse(productIds),

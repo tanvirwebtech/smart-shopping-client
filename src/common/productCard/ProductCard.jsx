@@ -1,12 +1,12 @@
 import React from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/actions/cartActions";
+
 import { addToPYML } from "../../redux/actions/pymlActions";
 import ViewCartBtn from "../buttons/ViewCartBtn";
-import { FaCartPlus, FaHeart } from "react-icons/fa";
+import { FaCartPlus, FaHeart, FaStar } from "react-icons/fa";
 import Spinner from "../spinners/Spinner";
-import Swal from "sweetalert2";
+
 import useAddToCart from "../../hooks/useAddToCart";
 export default function ProductCard(props) {
     const { product } = props;
@@ -14,7 +14,7 @@ export default function ProductCard(props) {
     const cartProduct = useSelector((state) => state.cart.cart);
     const user = useSelector((state) => state.authState.user);
     const loading = useSelector((state) => state.siteLoading.loading);
-    const location = useLocation();
+
     const navigate = useNavigate();
     const { addProductToCart } = useAddToCart();
     if (loading) {
@@ -22,7 +22,6 @@ export default function ProductCard(props) {
     }
 
     const handleAddToCart = (id, email) => {
-        console.log(id, email);
         dispatch(addProductToCart(id, email, navigate));
     };
     return (
@@ -45,20 +44,23 @@ export default function ProductCard(props) {
                         </div>
                         <div className="title my-2">
                             <Link to={`/product/${product?._id}`}>
-                                <h4 className="font-medium text-xs sm:text-base lg:text-xl">
+                                <h4 className="font-medium text-xs sm:text-base lg:text-xl cursor-pointer">
                                     {product?.productName}
                                 </h4>
                             </Link>
                         </div>
-                        <div className="price-rating mt-2 flex justify-between">
-                            <div className="price text-primaryYellow font-medium">
+                        <div className="price-rating mt-2 ">
+                            <div className="rating text-xs sm:text-sm flex py-2 text-primaryYellow items-center">
+                                <FaStar></FaStar>
+                                <FaStar></FaStar>
+                                <FaStar></FaStar>
+                                <FaStar></FaStar>
+                                <FaStar></FaStar>
+                                <span>({product?.maxOrder} reviews)</span>
+                            </div>
+                            <div className="price text-green-700 font-medium">
                                 <h4 className="text-xs sm:text-base">
                                     Price: $<span>{product?.price}</span>
-                                </h4>
-                            </div>
-                            <div className="rating">
-                                <h4 className="text-xs sm:text-base">
-                                    Rating: <span>5</span>
                                 </h4>
                             </div>
                         </div>
