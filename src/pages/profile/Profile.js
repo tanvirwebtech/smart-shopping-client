@@ -37,11 +37,11 @@ const Profile = () => {
                 onClose={handleCloseModal}
                 user={user}
             />
-            <div className="max-w-screen-lg mx-auto px-4 py-8">
-                <div className="flex flex-col md:flex-row items-center justify-between mb-8">
-                    <div className="flex items-center mb-4 md:mb-0">
+            <div className="max-w-screen-lg mx-auto px-2 py-2 lg:px-4 lg:py-8">
+                <div className="flex flex-col md:flex-row items-center justify-between lgmb-4:lg:mb-8 mb-2 md:mb-6">
+                    <div className="flex items-center mb-2 md:mb-0">
                         <img
-                            className="w-24 h-24 rounded-full mr-4"
+                            className="lg:w-24 lg:h-24 w-16 h-16 rounded-full mr-4"
                             src={
                                 user?.photoURL
                                     ? `${user?.photoURL}`
@@ -50,22 +50,22 @@ const Profile = () => {
                             alt="Profile"
                         />
                         <div>
-                            <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                            <h1 className="text-sm sm:text-base md:text-2xl lg:text-4xl font-bold text-gray-800 mb-2">
                                 {profile ? profile.name : user?.displayName}
                             </h1>
-                            <p className="text-gray-700 mb-1">
+                            <p className="text-gray-700 text-xs sm:text-sm md:text-base mb-1">
                                 Email: <span>{user?.email}</span>
                             </p>
-                            <p className="text-gray-700 mb-1">
+                            <p className="text-gray-700 text-xs sm:text-sm md:text-base mb-1">
                                 Contact No.: {profile?.phone}
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-gray-700 text-xs sm:text-sm md:text-base">
                                 Address: {profile?.addresses[1]}
                             </p>
                         </div>
                     </div>
                     <button
-                        className="bg-primaryYellow text-white px-4 py-2 rounded-lg"
+                        className="bg-primaryYellow text-white text-xs sm:text-sm md:text-base px-2 py-1 lg:px-4 lg:py-2 rounded-lg"
                         onClick={handleOpenModal}
                     >
                         Edit Profile
@@ -83,19 +83,19 @@ const Profile = () => {
                                             <ul className="divide-y divide-gray-200">
                                                 <Tab
                                                     className={
-                                                        "py-4 px-6 bg-white rounded-lg  mb-8"
+                                                        "lg:py-4 lg:px-6 px-2 py-1 bg-white rounded-lg mb-4 lg:mb-8"
                                                     }
                                                 >
-                                                    <button className="text-lg font-medium text-gray-800 hover:text-primaryYellow focus:outline-none">
+                                                    <button className="text-sm md:text-base lg:text-lg font-medium text-gray-800 hover:text-primaryYellow focus:outline-none">
                                                         Orders
                                                     </button>
                                                 </Tab>
                                                 <Tab
                                                     className={
-                                                        "py-4 px-6 bg-white rounded-lg mb-8"
+                                                        "lg:py-4 lg:px-6 px-2 py-1 bg-white rounded-lgmb-4 lg:mb-8"
                                                     }
                                                 >
-                                                    <button className="text-lg font-medium text-gray-800 hover:text-primaryYellow focus:outline-none">
+                                                    <button className="text-sm md:text-base lg:text-lg font-medium text-gray-800 hover:text-primaryYellow focus:outline-none">
                                                         Reviews
                                                     </button>
                                                 </Tab>
@@ -105,19 +105,19 @@ const Profile = () => {
                                     <div className="col-span-3 border">
                                         <TabPanel>
                                             <ul className="divide-y divide-gray-200">
-                                                <li className="py-4 px-6">
-                                                    <p className="text-lg font-medium text-gray-800">
+                                                <li className="lg:py-4 lg:px-6 px-2 py-1">
+                                                    <p className="text-sm md:text-base lg:text-lg font-medium text-gray-800">
                                                         Order #12345
                                                     </p>
-                                                    <p className="text-gray-700">
+                                                    <p className="text-gray-700 text-xs sm:text-sm md:text-base">
                                                         Status: Processing
                                                     </p>
                                                 </li>
-                                                <li className="py-4 px-6">
-                                                    <p className="text-lg font-medium text-gray-800">
+                                                <li className="lg:py-4 lg:px-6 px-2 py-1">
+                                                    <p className="text-sm md:text-base lg:text-lg font-medium text-gray-800">
                                                         Order #67890
                                                     </p>
-                                                    <p className="text-gray-700">
+                                                    <p className="text-gray-700 text-xs sm:text-sm md:text-base">
                                                         Status: Shipped
                                                     </p>
                                                 </li>
@@ -125,19 +125,19 @@ const Profile = () => {
                                         </TabPanel>
                                         <TabPanel>
                                             <ul className="divide-y divide-gray-200">
-                                                <li className="py-4 px-6">
-                                                    <p className="text-lg font-medium text-gray-800">
+                                                <li className="lg:py-4 lg:px-6 px-2 py-1">
+                                                    <p className="text-sm md:text-base lg:text-lg font-medium text-gray-800">
                                                         Review #12345
                                                     </p>
-                                                    <p className="text-gray-700">
+                                                    <p className="text-gray-700 text-xs sm:text-sm md:text-base">
                                                         Status: Processing
                                                     </p>
                                                 </li>
-                                                <li className="py-4 px-6">
-                                                    <p className="text-lg font-medium text-gray-800">
+                                                <li className="lg:py-4 lg:px-6 px-2 py-1">
+                                                    <p className="text-sm md:text-base lg:text-lg font-medium text-gray-800">
                                                         Review #67890
                                                     </p>
-                                                    <p className="text-gray-700">
+                                                    <p className="text-gray-700 text-xs sm:text-sm md:text-base">
                                                         Status: Shipped
                                                     </p>
                                                 </li>

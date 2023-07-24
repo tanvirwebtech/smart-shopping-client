@@ -57,18 +57,18 @@ export default function RegisterModal(props) {
                             <span className="sr-only">Close modal</span>
                         </button>
                         <div className="py-6 px-6 lg:px-8">
-                            <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">
+                            <h3 className="mb-4 text-sm sm:text-base lg:text-xl font-medium text-gray-900 dark:text-white">
                                 Register in to our platform
                             </h3>
                             <div className="md:w-2/5 sm:w-4/6 w-11/12 mx-auto ">
                                 <form
-                                    className="space-y-6"
+                                    className="space-y-6 "
                                     onSubmit={handleSubmit(onSubmit)}
                                 >
                                     <div>
                                         <label
                                             htmlFor="name"
-                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            className="block mb-2 text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300"
                                         >
                                             Your Full Name
                                         </label>
@@ -76,7 +76,7 @@ export default function RegisterModal(props) {
                                             type="text"
                                             name="name"
                                             id="name"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs sm:text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                             placeholder="Enter your name."
                                             {...register("name", {
                                                 required: true,
@@ -91,7 +91,7 @@ export default function RegisterModal(props) {
                                     <div>
                                         <label
                                             htmlFor="email"
-                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            className="block mb-2 text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300"
                                         >
                                             Your Email
                                         </label>
@@ -99,7 +99,7 @@ export default function RegisterModal(props) {
                                             type="email"
                                             name="email"
                                             id="email"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs sm:text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                             placeholder="Enter your email."
                                             {...register("email", {
                                                 required: true,
@@ -114,7 +114,7 @@ export default function RegisterModal(props) {
                                     <div>
                                         <label
                                             htmlFor="password"
-                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            className="block mb-2 text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300"
                                         >
                                             Your password
                                         </label>
@@ -123,7 +123,7 @@ export default function RegisterModal(props) {
                                             name="password"
                                             id="password"
                                             placeholder="••••••••"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs sm:text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                             required
                                             {...register("password", {
                                                 required: true,
@@ -133,7 +133,7 @@ export default function RegisterModal(props) {
                                     <div>
                                         <label
                                             htmlFor="confirmPassword"
-                                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                                            className="block mb-2 text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300"
                                         >
                                             Confirm password
                                         </label>
@@ -142,7 +142,7 @@ export default function RegisterModal(props) {
                                             name="password"
                                             id="confirmPassword"
                                             placeholder="••••••••"
-                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-xs sm:text-sm rounded-lg focus:ring-primaryYellow focus:border-primaryYellow block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                             {...register("confirm_pass", {
                                                 required: true,
                                                 validate: (val) => {
@@ -173,7 +173,7 @@ export default function RegisterModal(props) {
                                     ) : (
                                         <button
                                             type="submit"
-                                            className="w-full text-white bg-primaryYellow hover:bg-primaryYellow focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primaryYellow dark:hover:bg-primaryYellow dark:focus:ring-primaryYellow"
+                                            className="w-full text-white bg-primaryYellow hover:bg-primaryYellow focus:ring-4 focus:outline-none font-medium rounded-lg text-xs sm:text-sm px-5 py-2.5 text-center dark:bg-primaryYellow dark:hover:bg-primaryYellow dark:focus:ring-primaryYellow"
                                         >
                                             Register
                                         </button>

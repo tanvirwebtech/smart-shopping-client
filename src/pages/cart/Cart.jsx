@@ -9,10 +9,12 @@ import {
 import { Link } from "react-router-dom";
 import { addOrder } from "../../redux/actions/orderAction";
 import Spinner from "../../common/spinners/Spinner";
+
 export default function Cart() {
     const cart = useSelector((state) => state.cart.cart);
     const products = useSelector((state) => state.products);
     const user = useSelector((state) => state.authState.user);
+    const loading = useSelector((state) => state.authState.loading);
     const [localCart, setLocalCart] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
     const dispatch = useDispatch();
@@ -53,21 +55,21 @@ export default function Cart() {
 
     return (
         <div className="container">
-            <h2 className="text-4xl font-medium text-center mt-8 py-4">
+            <h2 className="text-base md:text-2xl lg:text-4xl font-medium text-center mt-8 py-4">
                 Shopping Cart
             </h2>
             <hr />
             <div className="card-body mt-4 border rounded-sm relative">
                 <div className="grid grid-cols-3 ">
-                    <div className="col-span-2 ">
-                        <h4 className="text-center font-medium text-2xl">
+                    <div className="col-span-3 md:col-span-2 ">
+                        <h4 className="text-center font-medium text-sm md:text-base lg:text-2xl">
                             {localCart?.length
                                 ? "Products"
                                 : "No Products in Cart"}
                         </h4>
                         <hr />
                         <div className="cart-products">
-                            {!localCart?.length && (
+                            {loading && (
                                 <>
                                     <Spinner></Spinner>
                                 </>
@@ -75,17 +77,17 @@ export default function Cart() {
                             {localCart?.map((cartProduct) => (
                                 <div
                                     key={cartProduct._id}
-                                    className="cart-product border rounded-sm p-2 m-2"
+                                    className="cart-product border rounded-sm md:p-2 m-2"
                                 >
                                     <div className="cart-product-body flex items-center justify-between">
-                                        <div className="cart-product-thumb">
+                                        <div className="cart-product-thumb w-1/5">
                                             <img
                                                 src={cartProduct?.img}
-                                                className="w-2/5"
+                                                className="w-full"
                                                 alt=""
                                             />
                                         </div>
-                                        <div className="cart-product-details">
+                                        <div className="cart-product-details text-xs sm:text-sm md:text-base">
                                             <h4>{cartProduct?.productName}</h4>
                                             <h5>{cartProduct?.category}</h5>
                                             <div className="addition-info flex gap-2">
@@ -97,15 +99,15 @@ export default function Cart() {
                                                 </h5>
                                             </div>
                                         </div>
-                                        <div className="quantity ml-4">
+                                        <div className="quantity md:ml-4">
                                             <form action="">
-                                                <p className="qty  text-center">
+                                                <p className="qty text-xs sm:text-sm md:text-base text-center">
                                                     <label htmlFor="qty">
                                                         Quantity:
                                                     </label>
                                                     <br />
                                                     <button
-                                                        className="qtyminus ml-2 py-2 px-4 bg-siteGray-100"
+                                                        className="qtyminus ml-2 py-1 md:py-2 md:px-4 px-1 bg-siteGray-100"
                                                         aria-hidden="true"
                                                         type="button"
                                                         onClick={() =>
@@ -123,10 +125,10 @@ export default function Cart() {
                                                         id="qty"
                                                         value={cartProduct.qty}
                                                         readOnly
-                                                        className="w-3/12 mx-2 border p-2"
+                                                        className="w-1/6 md:w-3/12 md:mx-2 border md:p-2"
                                                     />
                                                     <button
-                                                        className="qtyplus py-2 px-4 bg-siteGray-100"
+                                                        className="qtyplus py-1 md:py-2 md:px-4 px-1 bg-siteGray-100"
                                                         type="button"
                                                         onClick={() =>
                                                             dispatch(
@@ -142,11 +144,13 @@ export default function Cart() {
                                             </form>
                                         </div>
                                         <div className="cart-product-price">
-                                            <h4>Total</h4>
+                                            <h4 className="text-xs sm:text-sm md:text-base">
+                                                Total
+                                            </h4>
 
                                             <h4>
                                                 $
-                                                <span>
+                                                <span className="text-xs sm:text-sm md:text-base">
                                                     {cartProduct.price *
                                                         cartProduct.qty}
                                                 </span>
@@ -154,7 +158,7 @@ export default function Cart() {
                                         </div>
                                         <div className="remove-from-cart">
                                             <button
-                                                className="trash-btn mx-4"
+                                                className="trash-btn mx-2 md:mx-4 text-xs sm:text-sm md:text-base"
                                                 title="Remove Product"
                                                 onClick={() =>
                                                     dispatch(
@@ -167,7 +171,7 @@ export default function Cart() {
                                             >
                                                 {/* Trash Icon  */}
                                                 <svg
-                                                    className="w-6 h-6"
+                                                    className="w-4 h-4 md:w-6 md:h-6 "
                                                     fill="none"
                                                     stroke="currentColor"
                                                     viewBox="0 0 24 24"
@@ -187,11 +191,11 @@ export default function Cart() {
                             ))}
                         </div>
                     </div>
-                    <div className="order-summary sticky bottom-10 right-0">
-                        <div className="order-summary-heading">
+                    <div className="col-span-2 md:col-span-1 order-summary md:sticky bottom-10 right-0 p-2">
+                        <div className="order-summary-heading text-sm sm:text-base text-center">
                             <h4>Order Summary</h4>
                         </div>
-                        <div className="mt-4 p-2">
+                        <div className="mt-1 md:mt-4 p-2 text-xs sm:text-sm md:text-base">
                             <p>Total Items: {localCart?.length}</p>
                             <p>
                                 Subtotal: <span>{subtotal}</span>
@@ -202,10 +206,10 @@ export default function Cart() {
                                 <div className="">
                                     <input
                                         type="text"
-                                        className="border py-2 px-2"
+                                        className="border md:py-2 md:px-2 text-xs sm:text-sm md:text-base"
                                         placeholder="Enter Coupon"
                                     />
-                                    <button className="cart-btn mx-0">
+                                    <button className="cart-btn mx-0 text-xs sm:text-sm md:text-base">
                                         Apply Coupon
                                     </button>
                                 </div>
@@ -214,7 +218,7 @@ export default function Cart() {
                         <div className="checkout">
                             <Link to={"/checkout"}>
                                 <button
-                                    className="capitalize w-full px-4 py-4 bg-orange-500 text-siteGray-400 font-semibold mt-4 hover:shadow-lg duration-300 hover:bg-orange-800 hover:text-white"
+                                    className="capitalize md:w-full px-2 md:px-4 py-1 md:py-4 bg-orange-500 text-siteGray-400 font-semibold mt-2 md:mt-4 hover:shadow-lg duration-300 hover:bg-orange-800 hover:text-white text-xs "
                                     onClick={handleCheckOut}
                                 >
                                     Proceed to checkout

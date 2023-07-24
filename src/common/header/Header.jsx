@@ -195,7 +195,7 @@ export default function Header() {
                         id="navbar-default"
                     >
                         <ul className="flex flex-col p-2 mt-4 bg-siteGray-100 rounded-lg border border-gray-100 md:flex-row md:space-x-8 md:mt-0 md:font-medium md:border-0  dark:bg-gray-700 dark:border-primaryYellow">
-                            <li>
+                            <li onClick={handleNavToggle}>
                                 <Link
                                     to="/"
                                     className="headerNavLink"
@@ -204,7 +204,7 @@ export default function Header() {
                                     Home
                                 </Link>
                             </li>
-                            <li>
+                            <li onClick={handleNavToggle}>
                                 <Link
                                     to="/all-products"
                                     className="headerNavLink"
@@ -213,7 +213,7 @@ export default function Header() {
                                     All Products
                                 </Link>
                             </li>
-                            <li>
+                            <li onClick={handleNavToggle}>
                                 <Link
                                     to="/products/smartphone"
                                     className="headerNavLink"
@@ -222,7 +222,7 @@ export default function Header() {
                                     Smart Phones
                                 </Link>
                             </li>
-                            <li>
+                            <li onClick={handleNavToggle}>
                                 <Link
                                     to="/products/laptop"
                                     className="headerNavLink"
@@ -231,7 +231,7 @@ export default function Header() {
                                     Laptops
                                 </Link>
                             </li>
-                            <li>
+                            <li onClick={handleNavToggle}>
                                 <Link
                                     to="/"
                                     className="headerNavLink"
@@ -240,7 +240,7 @@ export default function Header() {
                                     Accessories
                                 </Link>
                             </li>
-                            <li>
+                            <li onClick={handleNavToggle}>
                                 <Link
                                     to="/"
                                     className="headerNavLink"
@@ -249,8 +249,17 @@ export default function Header() {
                                     All Categories
                                 </Link>
                             </li>
+                            <li onClick={handleNavToggle}>
+                                <Link
+                                    to="/about"
+                                    className="headerNavLink"
+                                    aria-current="page"
+                                >
+                                    About
+                                </Link>
+                            </li>
                             {!authState.user && (
-                                <li>
+                                <li onClick={handleNavToggle}>
                                     <Link
                                         to="/login"
                                         className="headerNavLink"
