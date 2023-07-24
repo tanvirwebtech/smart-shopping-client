@@ -10,8 +10,6 @@ import {
 import auth from "../../firebase/init.firebase";
 import Swal from "sweetalert2";
 import axios from "axios";
-import { Routes, useNavigate } from "react-router-dom";
-import { createBrowserRouter } from "react-router-dom";
 
 // const router = createBrowserRouter(routes, { basename: "/" });
 
@@ -98,10 +96,11 @@ export const loginWithEmail = (userData, location, navigate) => {
 
 // Sign in with Google
 
-export const googleSignIn = () => {
+export const googleSignIn = (location, navigate) => {
     const provider = new GoogleAuthProvider();
     return (dispatch) => {
-        signInWithPopup(auth, provider)
+        const from = location.state?.from?.pathname;
+        signInWithRedirect(auth, provider)
             .then((result) => {
                 axios
                     .post(
@@ -113,6 +112,7 @@ export const googleSignIn = () => {
                             type: "LOGIN_SUCCESS",
                             payload: result.user,
                         });
+                        navigate(from, { replace: true });
                         Swal.fire(
                             "Success!",
                             "You successfully logged in!",

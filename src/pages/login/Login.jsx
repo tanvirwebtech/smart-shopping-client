@@ -21,10 +21,19 @@ export default function Login() {
         handleSubmit,
         formState: { errors },
     } = useForm();
+
+    // Login With Email and Password
     const onSubmit = (data) => {
         dispatch(loginWithEmail(data, location, navigate)); //data: {email, loginPassword}
         reset();
     };
+
+    // Google Login
+    const handleGoogleLogin = () => {
+        dispatch(googleSignIn(location, navigate));
+    };
+
+    // Register Modal Toggle
     const toggleModal = () => {
         setModalOpen(!modalOpen);
     };
@@ -115,7 +124,7 @@ export default function Login() {
                                 <div className="google-login">
                                     <button
                                         className="bg-siteGray-200 text-white border-0 rounded-sm py-1 px-2 md:py-4 md:px-4 hover:bg-primaryYellow hover:text-siteGray-400 duration-300 w-full text-xs sm:text-sm md:text-base"
-                                        onClick={() => dispatch(googleSignIn())}
+                                        onClick={handleGoogleLogin}
                                     >
                                         Google
                                     </button>

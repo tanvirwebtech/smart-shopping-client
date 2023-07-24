@@ -1,12 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { addToPYML } from "../../redux/actions/pymlActions";
 import ViewCartBtn from "../buttons/ViewCartBtn";
 import { FaCartPlus, FaHeart, FaStar } from "react-icons/fa";
 import Spinner from "../spinners/Spinner";
-
 import useAddToCart from "../../hooks/useAddToCart";
 export default function ProductCard(props) {
     const { product } = props;
