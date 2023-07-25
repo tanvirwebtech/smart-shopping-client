@@ -19,7 +19,7 @@ const cartReducer = (state = initialState, action) => {
                 (pd) => pd.id !== action.payload
             );
 
-            return filterCart;
+            return { ...state, cart: filterCart };
 
         case "QUANTITY_INCREASE":
             const itemToUpdateIndex = state.cart.findIndex(

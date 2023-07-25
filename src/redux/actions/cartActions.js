@@ -102,7 +102,7 @@ export const getCartProducts = (payload) => {
 // };
 
 export function removeFromCart(productID, email) {
-    return async (dispatch) => {
+    return (dispatch) => {
         const cart = { id: productID, del: true };
 
         fetch(`https://smart-server-pi.vercel.app/cart/${email}`, {
@@ -111,12 +111,12 @@ export function removeFromCart(productID, email) {
             headers: {
                 "Content-type": "application/json",
             },
-        }).then((res) => console.log(res));
+        }).then((res) => res.json());
 
         // setLocalCart(productID);
         dispatch({ type: "REMOVE_FROM_CART", payload: productID });
         dispatch({ type: "CART_LOADING_FALSE" });
-        window.location.reload();
+        // window.location.reload();
     };
 }
 export function clearCart() {

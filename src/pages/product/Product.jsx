@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { IoIosArrowForward } from "react-icons/io";
-import { FaStar } from "react-icons/fa";
+import { FaCartPlus, FaStar } from "react-icons/fa";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import useAddToCart from "../../hooks/useAddToCart";
 import Pylm from "./../../common/productYouMayLike.js/Pylm";
+import ViewCartBtn from "../../common/buttons/ViewCartBtn";
 
 export default function Product() {
     const products = useSelector((state) => state.products);
@@ -88,23 +89,24 @@ export default function Product() {
                             </div>
                         </div>
                         <div className="product-btns">
-                            {cartProduct?.includes(newProduct?._id) ? (
-                                <Link to="/cart">
-                                    <button className="py-2 px-4 bg-primaryYellow text-gray-900 border-0 text-sm rounded-sm">
-                                        View Cart
-                                    </button>
-                                </Link>
+                            {cartProduct?.find(
+                                (pd) => pd.id === newProduct?._id
+                            ) ? (
+                                <ViewCartBtn sz={"sm"}></ViewCartBtn>
                             ) : (
                                 <button
                                     className="cart-btn"
-                                    onclick={() =>
+                                    onClick={() =>
                                         handleAddToCart(
                                             newProduct._id,
                                             user?.email
                                         )
                                     }
                                 >
-                                    Add to cart
+                                    <div className="flex items-center">
+                                        Add to cart{" "}
+                                        <FaCartPlus className="ml-2" />
+                                    </div>
                                 </button>
                             )}
                         </div>
@@ -295,13 +297,9 @@ export default function Product() {
                                 </div>
                                 <div className="add-to-cart ml-4">
                                     {cartProduct?.find(
-                                        (pd) => pd._id === id
+                                        (pd) => pd.id === newProduct?._id
                                     ) ? (
-                                        <Link to="/cart">
-                                            <button className="py-2 px-4 bg-primaryYellow text-gray-900 border-0 text-sm rounded-sm">
-                                                View Cart
-                                            </button>
-                                        </Link>
+                                        <ViewCartBtn sz="sm"></ViewCartBtn>
                                     ) : (
                                         <button
                                             className="cart-btn"
@@ -312,8 +310,10 @@ export default function Product() {
                                                 )
                                             }
                                         >
-                                            {" "}
-                                            Add to Cart
+                                            <div className="flex items-center">
+                                                Add to cart{" "}
+                                                <FaCartPlus className="ml-2" />
+                                            </div>
                                         </button>
                                     )}
                                 </div>
