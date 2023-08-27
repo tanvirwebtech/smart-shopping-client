@@ -27,11 +27,8 @@ export const registerUser = (userData) => {
         )
             .then((userCredential) => {
                 axios
-                    .post(
-                        "https://smart-server-pi.vercel.app/registerUser",
-                        userData
-                    )
-                    .then(function (response) {
+                    .post("/registerUser", userData)
+                    .then((result) => {
                         updateProfile(auth.currentUser, {
                             displayName: userData.name,
                         })
@@ -41,7 +38,9 @@ export const registerUser = (userData) => {
                                     payload: userCredential.user,
                                 });
                             })
-                            .catch((error) => {});
+                            .catch((error) => {
+                                console.log(error);
+                            });
                     })
                     .catch(function (error) {
                         dispatch({
@@ -69,9 +68,9 @@ export const registerUser = (userData) => {
 
 export const loginWithEmail = (userData, location, navigate) => {
     return (dispatch) => {
-        dispatch({
-            type: "AUTH_PENDING",
-        });
+        // dispatch({
+        //     type: "AUTH_PENDING",
+        // });
         const from = location.state?.from?.pathname;
 
         signInWithEmailAndPassword(auth, userData.email, userData.loginPassword)
@@ -103,10 +102,7 @@ export const googleSignIn = (location, navigate) => {
         signInWithRedirect(auth, provider)
             .then((result) => {
                 axios
-                    .post(
-                        "https://smart-server-pi.vercel.app/registerUser",
-                        result.user
-                    )
+                    .post("/registerUser", result.user)
                     .then(function (response) {
                         dispatch({
                             type: "LOGIN_SUCCESS",

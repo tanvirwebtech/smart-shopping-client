@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { googleSignIn, loginWithEmail } from "../../redux/actions/authActions";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import Spinner from "./../../common/spinners/Spinner";
 
 export default function Login() {
     const authState = useSelector((state) => state.authState);
@@ -24,13 +25,14 @@ export default function Login() {
 
     // Login With Email and Password
     const onSubmit = (data) => {
+        dispatch({ type: "AUTH_PENDING" });
         dispatch(loginWithEmail(data, location, navigate)); //data: {email, loginPassword}
         reset();
     };
 
     // Google Login
     const handleGoogleLogin = () => {
-        dispatch(googleSignIn(location, navigate));
+        // dispatch(googleSignIn(location, navigate));
     };
 
     // Register Modal Toggle
@@ -107,13 +109,16 @@ export default function Login() {
                                         </span>
                                     )}
                                 </div>
-
-                                <button
-                                    type="submit"
-                                    className="text-white bg-primaryYellow hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-blue-300 duration-300 font-medium rounded-md text-xs sm:text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primaryYellow dark:hover:bg-primaryYellow dark:focus:ring-yellow-600"
-                                >
-                                    Log in
-                                </button>
+                                {authState.loading ? (
+                                    <Spinner></Spinner>
+                                ) : (
+                                    <button
+                                        type="submit"
+                                        className="text-white bg-primaryYellow hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-blue-300 duration-300 font-medium rounded-md text-xs sm:text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primaryYellow dark:hover:bg-primaryYellow dark:focus:ring-yellow-600"
+                                    >
+                                        Log in
+                                    </button>
+                                )}
                             </form>
                         </div>
                         <div className="login-with-accounts border-l pl-4">

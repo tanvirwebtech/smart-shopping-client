@@ -1,6 +1,7 @@
 import React from "react";
 import ProductSlider from "../../common/productSlider/ProductSlider";
 import { useSelector } from "react-redux";
+import Spinner from "../../common/spinners/Spinner";
 
 export default function Shop() {
     const products = useSelector((state) => state.products);
@@ -19,17 +20,22 @@ export default function Shop() {
         });
         return categorizedPRoducts;
     };
+    const loading = useSelector((state) => state.siteLoading.loading);
+
+    if (loading) {
+        return <Spinner></Spinner>;
+    }
 
     return (
         <div className="container">
             <div className="heading">
-                <h2 className="section-heading text-center font-semibold py-2 sm:py-4 md:py-4 text-xl md:text-2xl">
+                <h2 className="section-heading text-center font-semibold py-2 sm:py-4 md:py-4 text-xl md:text-2xl font-poppins">
                     Shop
                 </h2>
             </div>
             <hr />
-            {getCategorizedProduct().map((a) => (
-                <div className="">
+            {getCategorizedProduct().map((a, index) => (
+                <div className="" key={index}>
                     <ProductSlider
                         products={a}
                         categoryHeading={a[0].category}

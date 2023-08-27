@@ -3,7 +3,14 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import ProductCard from "./../productCard/ProductCard";
 import "./ProductSlider.css";
+import { useSelector } from "react-redux";
+import Spinner from "../spinners/Spinner";
 export function PrevArrow(props) {
+    const loading = useSelector((state) => state.siteLoading.loading);
+
+    if (loading) {
+        return <Spinner></Spinner>;
+    }
     const { onClick } = props;
     return (
         <div

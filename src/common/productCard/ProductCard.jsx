@@ -11,13 +11,9 @@ export default function ProductCard(props) {
     const dispatch = useDispatch();
     const cartProduct = useSelector((state) => state.cart.cart);
     const user = useSelector((state) => state.authState.user);
-    const loading = useSelector((state) => state.siteLoading.loading);
 
     const navigate = useNavigate();
     const { addProductToCart } = useAddToCart();
-    if (loading) {
-        return <Spinner></Spinner>;
-    }
 
     const handleAddToCart = (id, email) => {
         dispatch(addProductToCart(id, email, navigate));

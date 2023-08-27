@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import PrivateRoute from "./routes/privateRoute/PrivateRoute";
 import Checkout from "./pages/checkout/Checkout";
 import Spinner from "./common/spinners/Spinner";
+import TermsAndConditions from "./pages/termsAndConditions/TermsAndConditions";
 
 const About = React.lazy(() => import("./pages/about/About"));
 const Shop = React.lazy(() => import("./pages/shop/Shop"));
@@ -35,7 +36,6 @@ export default function TheLayout() {
                         <Route path="/about" element={<About />}></Route>
                         <Route path="/all-products" element={<Shop />}></Route>
                         <Route path="/login" element={<Login />}></Route>
-
                         <Route path="/cart" element={<Cart />}></Route>
                         <Route
                             path="/profile"
@@ -60,6 +60,10 @@ export default function TheLayout() {
                         <Route
                             path="/products/:category"
                             element={<Category />}
+                        ></Route>
+                        <Route
+                            path="/terms-and-conditions"
+                            element={<TermsAndConditions />}
                         ></Route>
                         <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>

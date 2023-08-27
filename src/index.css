@@ -1,14 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;700&family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
+
 ::selection {
     @apply bg-primaryYellow text-siteGray-100;
 }
@@ -20,7 +19,20 @@ code {
 .container {
     @apply w-11/12 mx-auto;
 }
-
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    @apply font-league;
+}
+body,
+p,
+a,
+span {
+    @apply font-poppins leading-5;
+}
 .headerNavLink {
     @apply block py-2 pr-4 pl-3 text-sm md:text-base text-gray-800 hover:text-primaryYellow rounded duration-300 md:p-0 dark:text-white;
 }

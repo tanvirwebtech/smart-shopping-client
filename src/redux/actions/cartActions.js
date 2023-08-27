@@ -1,16 +1,20 @@
+import axios from "axios";
+
 // add to cart
 export const addToCart = (productID, email) => {
     return (dispatch) => {
         // dispatch({ type: "CART_LOADING_TRUE" });
         const cart = { id: productID, qty: 1 };
 
-        fetch(`https://smart-server-pi.vercel.app/cart/${email}`, {
-            method: "PUT",
-            body: JSON.stringify(cart),
-            headers: {
-                "Content-type": "application/json",
-            },
-        }).then((res) => console.log(res));
+        axios.put(`/cart/${email}`, cart).then((res) => console.log(res));
+
+        // {
+        //             method: "PUT",
+        //             body: JSON.stringify(cart),
+        //             headers: {
+        //                 "Content-type": "application/json",
+        //             },
+        //         }
 
         // setLocalCart(productID);
         dispatch({ type: "ADD_TO_CART", payload: productID });
@@ -75,11 +79,8 @@ export const addToCart = (productID, email) => {
 
 export const getCartProducts = (payload) => {
     return async (dispatch) => {
-        const res = await fetch(
-            `https://smart-server-pi.vercel.app/getCart/${payload}`
-        );
-        const data = await res.json();
-
+        const res = await axios.get(`/getCart/${payload}`);
+        const data = await res.data;
         dispatch({
             type: "CART",
             payload: data,
@@ -105,13 +106,15 @@ export function removeFromCart(productID, email) {
     return (dispatch) => {
         const cart = { id: productID, del: true };
 
-        fetch(`https://smart-server-pi.vercel.app/cart/${email}`, {
-            method: "PUT",
-            body: JSON.stringify(cart),
-            headers: {
-                "Content-type": "application/json",
-            },
-        }).then((res) => res.json());
+        axios.put(`/cart/${email}`, cart).then((res) => res.json());
+
+        // {
+        //     method: "PUT",
+        //     body: JSON.stringify(cart),
+        //     headers: {
+        //         "Content-type": "application/json",
+        //     },
+        // }
 
         // setLocalCart(productID);
         dispatch({ type: "REMOVE_FROM_CART", payload: productID });

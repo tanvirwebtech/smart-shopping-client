@@ -1,12 +1,14 @@
 import React from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import EditProfileModal from "./EditProfileModal";
 import { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import { getProfile } from "../../redux/actions/profileActions";
 
 const Profile = () => {
+    const dispatch = useDispatch();
     const authState = useSelector((state) => state.authState);
     const profile = useSelector((state) => state.profile.profile);
 
@@ -22,6 +24,7 @@ const Profile = () => {
     };
 
     useEffect(() => {
+        dispatch(getProfile(user.email));
         setTimeout(() => {
             if (!authState.user) {
                 return navigate("/login");
@@ -60,7 +63,7 @@ const Profile = () => {
                                 Contact No.: {profile?.phone}
                             </p>
                             <p className="text-gray-700 text-xs sm:text-sm md:text-base">
-                                Address: {profile?.addresses[1]}
+                                Address: {profile?.addresses[1].billing}
                             </p>
                         </div>
                     </div>

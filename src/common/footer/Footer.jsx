@@ -2,6 +2,7 @@ import React from "react";
 import logo from "../../assets/images/logo.png";
 import paymentImg from "../../assets/images/payments.png";
 import { FaPhone } from "react-icons/fa";
+import { Link } from "react-router-dom";
 // dark:bg-siteGray-200 dark:text-siteGray-100
 export default function Footer() {
     return (
@@ -70,7 +71,12 @@ export default function Footer() {
                             <li>Money-back guarantee</li>
                             <li>Returns</li>
                             <li>Shipping</li>
-                            <li>Terms and Conditions</li>
+                            <li>
+                                {" "}
+                                <Link to={"/terms-and-conditions"}>
+                                    Terms and Conditions
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                     <div className="footer-my-account text-center sm:text-left">

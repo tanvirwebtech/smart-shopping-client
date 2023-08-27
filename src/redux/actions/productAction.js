@@ -1,9 +1,9 @@
+import axios from "axios";
+
 const getProducts = (payload) => {
     return async (dispatch) => {
-        const res = await fetch(
-            `https://smart-server-pi.vercel.app/${payload}`
-        );
-        const data = await res.json();
+        const res = await axios.get(`/${payload}`);
+        const data = await res.data;
         dispatch({
             type: "PRODUCTS",
             payload: data,
