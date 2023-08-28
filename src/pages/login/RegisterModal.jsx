@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "./../../redux/actions/authActions";
 import Spinner from "../../common/spinners/Spinner";
 import { AiOutlineForm } from "react-icons/ai";
+import { Link } from "react-router-dom";
 export default function RegisterModal(props) {
     const { modalToggle, setModalOpen } = props;
     const dispatch = useDispatch();
@@ -188,6 +189,32 @@ export default function RegisterModal(props) {
                                                         matched!
                                                     </span>
                                                 )}
+                                            </div>
+                                            <div className="t-and-c">
+                                                <input
+                                                    type="checkbox"
+                                                    name="t-and-c"
+                                                    id="t-and-c"
+                                                    {...register("tAndC", {
+                                                        required: true,
+                                                    })}
+                                                />
+                                                <label
+                                                    htmlFor="t-and-c"
+                                                    className=" ml-2  mb-2 text-xs sm:text-sm font-medium text-gray-900 dark:text-gray-300"
+                                                >
+                                                    I have read and agree with
+                                                    all the{" "}
+                                                    <Link
+                                                        className="text-primaryYellow"
+                                                        to={
+                                                            "/terms-and-conditions"
+                                                        }
+                                                    >
+                                                        terms and conditions
+                                                    </Link>
+                                                    .
+                                                </label>
                                             </div>
                                             <div>
                                                 {loading ? (

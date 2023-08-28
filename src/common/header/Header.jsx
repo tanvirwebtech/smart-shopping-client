@@ -9,6 +9,7 @@ import logo from "../../assets/images/logo3.png";
 export default function Header() {
     const [navToggle, setNavToggle] = useState(false);
     const [userOption, setUserOption] = useState(false);
+
     const authState = useSelector((state) => state.authState);
     const cart = useSelector((state) => state.cart.cart);
     const dispatch = useDispatch();
@@ -26,6 +27,16 @@ export default function Header() {
     const handleUserOption = () => {
         setUserOption(!userOption);
     };
+    useEffect(() => {
+        return () => {
+            window.addEventListener("resize", () => {
+                if (window.innerWidth >= 768) {
+                    setNavToggle(false);
+                }
+            });
+        };
+    }, []);
+
     return (
         <div className="w-full relative">
             <nav className="bg-siteGray-100 border-b border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-700 fixed top-0 w-full z-50">

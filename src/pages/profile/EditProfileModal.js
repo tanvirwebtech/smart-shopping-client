@@ -7,9 +7,10 @@ import { editProfile } from "../../redux/actions/profileActions";
 const EditProfileModal = ({ isOpen, onClose, user }) => {
     const [name, setName] = useState("");
     const dispatch = useDispatch();
+    console.log(user);
     useEffect(() => {
-        setName(user.displayName);
-    }, []);
+        setName(user.name);
+    }, [user]);
     const {
         register,
         handleSubmit,
@@ -19,8 +20,9 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
     } = useForm();
 
     const onSubmit = (data) => {
-        dispatch(editProfile(data));
-        // handle form data here
+        const updateData = { ...user, ...data };
+        console.log(updateData);
+        dispatch(editProfile(updateData));
         onClose();
     };
     const handleOnChange = (event) => {
@@ -80,7 +82,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         id="name"
                                         type="text"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
-                                        {...register("name", {})}
+                                        {...register("name")}
                                         value={name}
                                         onChange={handleOnChange}
                                     />
@@ -113,7 +115,9 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         id="contactNo"
                                         type="text"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
-                                        {...register("phone", {})}
+                                        {...register("phone", {
+                                            required: true,
+                                        })}
                                     />
                                 </div>
                                 <div className="mb-4">
@@ -127,7 +131,9 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         id="shippingAddress"
                                         rows="3"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
-                                        {...register("shippingAddress", {})}
+                                        {...register("shippingAddress", {
+                                            required: true,
+                                        })}
                                     ></textarea>
                                     <p className="text-xs text-gray-500 mt-1">
                                         Please provide your complete shipping
@@ -145,7 +151,9 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         id="billingAddress"
                                         rows="3"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
-                                        {...register("billingAddress", {})}
+                                        {...register("billingAddress", {
+                                            required: true,
+                                        })}
                                     ></textarea>
                                     <p className="text-xs text-gray-500 mt-1">
                                         Please provide your complete billing
