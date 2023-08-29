@@ -10,8 +10,8 @@ import { FaUserEdit } from "react-icons/fa";
 const Profile = () => {
     const dispatch = useDispatch();
     const authState = useSelector((state) => state.authState);
-    const profile = useSelector((state) => state.profile.profile);
-    // const [localProfile, setLocalProfile] = useState({});
+    const profile = useSelector((state) => state.profile);
+    const [localProfile, setLocalProfile] = useState({});
     let navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -22,6 +22,7 @@ const Profile = () => {
     const handleCloseModal = () => {
         setIsOpen(false);
     };
+    console.log(localProfile);
     // useEffect(() => {
     //     return () => {
     //         if (profile.db_id) {
@@ -29,6 +30,10 @@ const Profile = () => {
     //         }
     //     };
     // }, [profile]);
+    const updateProfileSet = (updateProfile) => {
+        setLocalProfile(updateProfile);
+    };
+    console.log(profile);
 
     useEffect(() => {
         dispatch(getProfile(user.email));

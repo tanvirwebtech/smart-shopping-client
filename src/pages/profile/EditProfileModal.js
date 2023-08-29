@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { editProfile } from "../../redux/actions/profileActions";
 
-const EditProfileModal = ({ isOpen, onClose, user }) => {
+const EditProfileModal = ({ isOpen, onClose, user, updateProfileSet }) => {
     const [name, setName] = useState("");
     const dispatch = useDispatch();
     console.log(user);
@@ -21,8 +21,14 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
 
     const onSubmit = (data) => {
         const updateData = { ...user, ...data };
-        console.log(updateData);
-        dispatch(editProfile(updateData));
+        const filteredObject = Object.keys(updateData)
+            .filter((key) => key && updateData[key])
+            .reduce((result, key) => {
+                result[key] = updateData[key];
+                return result;
+            }, {});
+        dispatch(editProfile(filteredObject));
+        // updateProfileSet(filteredObject);
         onClose();
     };
     const handleOnChange = (event) => {
@@ -83,7 +89,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         type="text"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
                                         {...register("name")}
-                                        value={name}
+                                        defaultValue={name}
                                         onChange={handleOnChange}
                                     />
                                 </div>
@@ -103,6 +109,12 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         {...register("email")}
                                         readOnly
                                     />
+                                    <span className="text-orange-500">
+                                        <small>
+                                            *You can't change your email
+                                            address.
+                                        </small>
+                                    </span>
                                 </div>
                                 <div className="mb-4">
                                     <label
@@ -115,9 +127,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         id="contactNo"
                                         type="text"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
-                                        {...register("phone", {
-                                            required: true,
-                                        })}
+                                        {...register("phone", {})}
                                     />
                                 </div>
                                 <div className="mb-4">
@@ -131,9 +141,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         id="shippingAddress"
                                         rows="3"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
-                                        {...register("shippingAddress", {
-                                            required: true,
-                                        })}
+                                        {...register("shippingAddress", {})}
                                     ></textarea>
                                     <p className="text-xs text-gray-500 mt-1">
                                         Please provide your complete shipping
@@ -151,9 +159,7 @@ const EditProfileModal = ({ isOpen, onClose, user }) => {
                                         id="billingAddress"
                                         rows="3"
                                         className="w-full px-3 py-2 border border-gray-400 rounded-lg focus:outline-none focus:border-primaryYellow"
-                                        {...register("billingAddress", {
-                                            required: true,
-                                        })}
+                                        {...register("billingAddress", {})}
                                     ></textarea>
                                     <p className="text-xs text-gray-500 mt-1">
                                         Please provide your complete billing

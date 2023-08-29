@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function Checkout() {
-    const profile = useSelector((state) => state.profile.profile);
-    const order = useSelector((state) => state.order.order);
+    const profile = useSelector((state) => state.profile);
+    const order = useSelector((state) => state.order);
     const [shippingFee, setShippingFee] = useState(0);
 
     return (
