@@ -7,7 +7,6 @@ import { editProfile } from "../../redux/actions/profileActions";
 const EditProfileModal = ({ isOpen, onClose, user, updateProfileSet }) => {
     const [name, setName] = useState("");
     const dispatch = useDispatch();
-    console.log(user);
     useEffect(() => {
         setName(user.name);
     }, [user]);
@@ -27,6 +26,7 @@ const EditProfileModal = ({ isOpen, onClose, user, updateProfileSet }) => {
                 result[key] = updateData[key];
                 return result;
             }, {});
+        console.log(filteredObject);
         dispatch(editProfile(filteredObject));
         // updateProfileSet(filteredObject);
         onClose();

@@ -2,6 +2,9 @@ import axios from "axios";
 
 export const editProfile = (userData) => {
     return async (dispatch) => {
+        dispatch({
+            type: "PROFILE_LOADING_TRUE",
+        });
         try {
             const res = await axios.put(`/users/${userData.email}`, userData);
             const data = await res.data;
@@ -11,19 +14,37 @@ export const editProfile = (userData) => {
                     payload: userData,
                 });
             }
+            dispatch({
+                type: "PROFILE_LOADING_FALSE",
+            });
         } catch (error) {
+            dispatch({
+                type: "PROFILE_LOADING_FALSE",
+            });
             console.log(error);
         }
     };
 };
 export const getProfile = (email) => {
     return async (dispatch) => {
-        const res = await axios.get(`/getUsers/${email}`);
-        console.log(res.data);
-        const data = res.data;
-        dispatch({
-            type: "GET_PROFILE",
-            payload: data,
-        });
+        try {
+            dispatch({
+                type: "PROFILE_LOADING_TRUE",
+            });
+            const res = await axios.get(`/getUsers/${email}`);
+            const data = res.data;
+            dispatch({
+                type: "GET_PROFILE",
+                payload: data,
+            });
+            dispatch({
+                type: "PROFILE_LOADING_FALSE",
+            });
+        } catch (error) {
+            dispatch({
+                type: "PROFILE_LOADING_FALSE",
+            });
+            console.log(error);
+        }
     };
 };
