@@ -3,78 +3,14 @@ import axios from "axios";
 // add to cart
 export const addToCart = (productID, email) => {
     return (dispatch) => {
-        // dispatch({ type: "CART_LOADING_TRUE" });
+        dispatch({ type: "CART_LOADING_TRUE" });
         const cart = { id: productID, qty: 1 };
 
-        axios.put(`/cart/${email}`, cart).then((res) => console.log(res));
-
-        // {
-        //             method: "PUT",
-        //             body: JSON.stringify(cart),
-        //             headers: {
-        //                 "Content-type": "application/json",
-        //             },
-        //         }
-
-        // setLocalCart(productID);
-        dispatch({ type: "ADD_TO_CART", payload: productID });
-        dispatch({ type: "CART_LOADING_FALSE" });
+        axios.put(`/cart/${email}`, cart).then((res) => {
+            dispatch({ type: "ADD_TO_CART", payload: productID });
+            dispatch({ type: "CART_LOADING_FALSE" });
+        });
     };
-
-    // const products = store.getState().products;
-    //  const getLocalCart = localStorage.getItem("cart");
-    //  if (getLocalCart) {
-    //      const cart = JSON.parse(getLocalCart);
-    //      console.log(cart);
-    //      let newCart = [];
-    //      if (products.length) {
-    //          cart.forEach((el) => {
-    //              const addedPd = products.find((pd) => pd._id === el.id);
-    //              const qty = el.qty;
-    //              const productWithQty = { ...addedPd, qty: qty };
-    //              newCart.push(productWithQty);
-    //          });
-    //      }
-    //      setLocalCart(newCart);
-
-    //      console.log(newCart);
-    //  }
-
-    // -----
-    // const getLocalCart = () => {
-    //     const localCart = localStorage.getItem("cart");
-    //     if (localCart) {
-    //         const cartItems = JSON.parse(localCart);
-    //         return cartItems;
-    //     } else {
-    //         return {};
-    //     }
-    // };
-    // const setLocalCart = (id) => {
-    //     console.log(id);
-    //     const isLocalCart = getLocalCart();
-    //     console.log(isLocalCart);
-    //     if (isLocalCart) {
-    //         console.log("got legth");
-
-    //         const checkProduct = isLocalCart.includes(id);
-    //         console.log(checkProduct);
-    //         if (checkProduct) {
-    //             return;
-    //         } else {
-    //             const newCartPd = { id: id, qty: 1 };
-    //             const newCart = [...isLocalCart, newCartPd];
-
-    //             const strCart = JSON.stringify(newCart);
-    //             return localStorage.setItem("cart", strCart);
-    //         }
-    //     } else {
-    //         console.log(id);
-    //         const cart = [{ id: id, qty: 1 }];
-    //         const strCart = JSON.stringify(cart);
-    //         return localStorage.setItem("cart", strCart);
-    //     }
-    // };
 };
 
 export const getCartProducts = (payload) => {
@@ -105,21 +41,12 @@ export const getCartProducts = (payload) => {
 export function removeFromCart(productID, email) {
     return (dispatch) => {
         const cart = { id: productID, del: true };
-
-        axios.put(`/cart/${email}`, cart).then((res) => res.json());
-
-        // {
-        //     method: "PUT",
-        //     body: JSON.stringify(cart),
-        //     headers: {
-        //         "Content-type": "application/json",
-        //     },
-        // }
-
-        // setLocalCart(productID);
-        dispatch({ type: "REMOVE_FROM_CART", payload: productID });
-        dispatch({ type: "CART_LOADING_FALSE" });
-        // window.location.reload();
+        axios.put(`/cart/${email}`, cart).then((res) => {
+            if (res.data.modifiedCount > 0) {
+                dispatch({ type: "REMOVE_FROM_CART", payload: productID });
+                dispatch({ type: "CART_LOADING_FALSE" });
+            }
+        });
     };
 }
 export function clearCart() {

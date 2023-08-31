@@ -17,6 +17,7 @@ export default function RegisterModal(props) {
         watch,
         reset,
     } = useForm();
+
     const onSubmit = (data) => {
         const name = `${data.firstName} ${data.lastName}`;
         dispatch(registerUser({ ...data, name }));

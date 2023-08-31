@@ -9,14 +9,16 @@ import logo from "../../assets/images/logo3.png";
 export default function Header() {
     const [navToggle, setNavToggle] = useState(false);
     const [userOption, setUserOption] = useState(false);
-
+    const profile = useSelector((state) => state.profile);
     const authState = useSelector((state) => state.authState);
     const cart = useSelector((state) => state.cart.cart);
+
     const dispatch = useDispatch();
 
     const handleNavToggle = () => {
         setNavToggle(!navToggle);
     };
+
     useEffect(() => {
         if (userOption) {
             setTimeout(() => {
@@ -24,6 +26,7 @@ export default function Header() {
             }, 3000);
         }
     }, [userOption]);
+
     const handleUserOption = () => {
         setUserOption(!userOption);
     };
@@ -101,40 +104,62 @@ export default function Header() {
                                 </svg>
                             </li>
                             {/* Profile Options */}
-                            <li className="font-sans ml-2 md:ml-0 p-1 md:inline-block lg:mt-0 relative w-full">
-                                <ul
+                            <li className="font-sans ml-2 md:ml-0 p-1 md:inline-block lg:mt-0 relative w-full text-white">
+                                <div
                                     className={`${
                                         authState.user && userOption
-                                            ? "absolute right-4 top-8 z-30"
+                                            ? "absolute right-4 top-8 z-30 px-2 py-1 bg-slate-500"
                                             : "hidden absolute right-4 top-8"
                                     }`}
                                 >
-                                    <li>
-                                        <Link
-                                            to={"/profile"}
-                                            className="inline-block py-2 px-4 my-1  bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300 cursor-pointer"
-                                            onClick={handleUserOption}
-                                        >
-                                            Profile
-                                        </Link>
-                                    </li>
-                                    <li>
-                                        <button
-                                            type="button"
-                                            className="inline-block py-2 px-4 my-1  bg-slate-100 text-slate-900 hover:text-primaryYellow duration-300 cursor-pointer"
-                                            onClick={() => dispatch(logout())}
-                                        >
-                                            Logout
-                                        </button>
-                                    </li>
-                                </ul>
+                                    <div className="text-center p-2">
+                                        <p>
+                                            <small>Name:{profile?.name}</small>
+                                        </p>
+                                        <p>
+                                            <small>
+                                                Email:{profile?.email}
+                                            </small>
+                                        </p>
+                                    </div>
+                                    <ul className="text-center">
+                                        <li>
+                                            <Link
+                                                to={"/profile"}
+                                                className="inline-block py-2 px-4 my-1  hover:text-primaryYellow hover:border-primaryYellow  duration-300 cursor-pointer border rounded-md"
+                                                onClick={handleUserOption}
+                                            >
+                                                View Profile
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <button
+                                                type="button"
+                                                className="inline-block py-2 px-4 my-1  hover:text-primaryYellow hover:border-primaryYellow duration-300 cursor-pointer border rounded-md "
+                                                onClick={() =>
+                                                    dispatch(logout())
+                                                }
+                                            >
+                                                Logout
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {/* {userOption && !authState.user && (
+                                    <div className="absolute w-[120px] -right-full top-8 z-30 px-2 py-1 bg-slate-500 animate-pulse duration-300">
+                                        Please Login
+                                    </div>
+                                )} */}
                                 {/* // */}
+
                                 {/* User Icon */}
                                 {/* // */}
                                 <button onClick={handleUserOption}>
                                     <svg
                                         className={
-                                            "w-5 md:w-6 text-primaryYellow"
+                                            userOption && !authState.user
+                                                ? "animate-[wiggle_0.5s_ease-in-out] duration-100 w-5 md:w-6 text-primaryYellow"
+                                                : "w-5 md:w-6 text-primaryYellow"
                                         }
                                         fill="none"
                                         stroke="currentColor"

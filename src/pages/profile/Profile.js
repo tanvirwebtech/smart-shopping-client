@@ -1,21 +1,18 @@
 import React from "react";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import EditProfileModal from "./EditProfileModal";
 import { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import { getProfile } from "../../redux/actions/profileActions";
 import { FaUserEdit } from "react-icons/fa";
 import Spinner from "./../../common/spinners/Spinner";
+
 const Profile = () => {
-    const dispatch = useDispatch();
     const authState = useSelector((state) => state.authState);
     const profile = useSelector((state) => state.profile);
     const profileLoading = useSelector(
         (state) => state.siteLoading.profileLoading
     );
-    let navigate = useNavigate();
+
     const [isOpen, setIsOpen] = useState(false);
 
     const handleOpenModal = () => {
@@ -25,16 +22,6 @@ const Profile = () => {
     const handleCloseModal = () => {
         setIsOpen(false);
     };
-
-    useEffect(() => {
-        dispatch(getProfile(user.email));
-        setTimeout(() => {
-            if (!authState.user) {
-                return navigate("/login");
-            }
-        }, 2000);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [authState]);
 
     const { user } = authState;
 

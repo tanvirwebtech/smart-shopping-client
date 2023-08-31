@@ -14,7 +14,7 @@ export default function Cart() {
     const cart = useSelector((state) => state.cart.cart);
     const products = useSelector((state) => state.products);
     const user = useSelector((state) => state.authState.user);
-    const loading = useSelector((state) => state.authState.loading);
+    const authLoading = useSelector((state) => state.authState.loading);
     const [localCart, setLocalCart] = useState([]);
     const [subtotal, setSubtotal] = useState(0);
     const dispatch = useDispatch();
@@ -69,7 +69,7 @@ export default function Cart() {
                         </h4>
                         <hr />
                         <div className="cart-products">
-                            {loading && (
+                            {authLoading && (
                                 <>
                                     <Spinner></Spinner>
                                 </>

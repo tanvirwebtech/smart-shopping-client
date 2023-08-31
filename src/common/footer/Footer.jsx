@@ -21,7 +21,7 @@ export default function Footer() {
                                     className="mx-auto sm:mx-0"
                                 />
                             </div>
-                            <div className="info-text text-xs sm:text-sm md-text-base text-center sm:text-left text-justify">
+                            <div className="info-text text-xs sm:text-sm md-text-base sm:text-left text-justify">
                                 <p>
                                     Welcome to Smart Shopping, your one-stop
                                     destination for all your online shopping

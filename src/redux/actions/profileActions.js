@@ -6,7 +6,7 @@ export const editProfile = (userData) => {
             type: "PROFILE_LOADING_TRUE",
         });
         try {
-            const res = await axios.put(`/users/${userData.email}`, userData);
+            const res = await axios.put(`/users/${userData.db_id}`, userData);
             const data = await res.data;
             if (data.modifiedCount > 0) {
                 dispatch({

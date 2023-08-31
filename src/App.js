@@ -1,5 +1,5 @@
 import TheLayout from "./TheLayout";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Provider, useDispatch, useSelector } from "react-redux";
 import store from "./redux/store";
 import { onAuthStateChanged } from "firebase/auth";
@@ -10,6 +10,11 @@ import { getPyml } from "./redux/actions/pymlActions";
 import { clearCart, getCartProducts } from "./redux/actions/cartActions";
 import { getProfile } from "./redux/actions/profileActions";
 import axios from "axios";
+import AdminRoute from "./routes/adminRoute/AdminRoute";
+import ManageProduct from "./pages/admin/manageProduct/ManageProduct";
+import ManageUsers from "./pages/admin/manageUsers/ManageUsers";
+import AddProduct from "./pages/admin/addProduct/AddProduct";
+import Dashboard from "./pages/admin/dashboard/Dashboard";
 
 function App() {
     // AXIOS DEFAULTS
@@ -30,6 +35,7 @@ function App() {
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
+            dispatch(getProfile(user.email));
             dispatch({
                 type: "LOGIN_SUCCESS",
                 payload: user,

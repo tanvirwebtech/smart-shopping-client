@@ -1,11 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dealbg from "../../assets/images/deal/bg-1.jpg";
 import { Link } from "react-router-dom";
 import ProductCard from "./../../common/productCard/ProductCard";
 import { useSelector } from "react-redux";
 import { BsArrowRight } from "react-icons/bs";
+
 const Deals = () => {
     const products = useSelector((state) => state.products);
+    const targetTime = new Date();
+    targetTime.setHours(targetTime.getHours() + 24); // Set target time to 24 hours from now
+
+    const [timeRemaining, setTimeRemaining] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const updatedTimeRemaining = calculateTimeRemaining(targetTime);
+            setTimeRemaining(updatedTimeRemaining);
+
+            if (updatedTimeRemaining.total <= 0) {
+                clearInterval(interval);
+            }
+        }, 1000);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
+    const calculateTimeRemaining = (targetTime) => {
+        const now = new Date().getTime();
+        const timeDifference = targetTime - now;
+
+        const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+        const minutes = Math.floor(
+            (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+        );
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        return {
+            total: timeDifference,
+            hours,
+            minutes,
+            seconds,
+        };
+    };
     return (
         <div>
             <div className="container ">
@@ -57,7 +95,7 @@ const Deals = () => {
                             <div className="timer flex mt-2 ">
                                 <div className="hour mx-2 text-center">
                                     <span className="font-bold p-1 sm:p-2 text-base md:text-2xl leading-6 bg-primaryYellow relative text-siteGray-100 rounded-md block after:content-[':'] after:-right-3 after:text-siteGray-400 after:absolute top-0">
-                                        23
+                                        {timeRemaining.hours}
                                     </span>
                                     <span>
                                         <small className="mt-6 text-xs">
@@ -67,7 +105,7 @@ const Deals = () => {
                                 </div>
                                 <div className="mx-2 minutes text-center">
                                     <span className="font-bold p-1 sm:p-2 text-base md:text-2xl leading-6 bg-primaryYellow text-siteGray-100 rounded-md block relative after:content-[':'] after:-right-3 after:text-siteGray-400 after:absolute top-0">
-                                        45
+                                        {timeRemaining.minutes}
                                     </span>
                                     <span className="">
                                         <small className="mt-6 text-xs">
@@ -77,7 +115,7 @@ const Deals = () => {
                                 </div>
                                 <div className="mx-2 seconds text-center">
                                     <span className="font-bold p-1 sm:p-2 text-base md:text-2xl leading-6 bg-primaryYellow text-siteGray-100 rounded-md block">
-                                        12
+                                        {timeRemaining.seconds}
                                     </span>
                                     <span className="">
                                         <small className="mt-6 text-xs">

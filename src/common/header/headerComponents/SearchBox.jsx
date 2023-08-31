@@ -1,11 +1,21 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 import { MdOutlineCancel, MdSearch } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import search from "../../../redux/actions/searchAction";
+import { useDispatch } from "react-redux";
 
 export default function SearchBox() {
     const [searchToggle, setSearchToggle] = useState(true);
+    const { handleSubmit, register } = useForm();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const handleSearchToggle = () => {
         setSearchToggle(!searchToggle);
+    };
+    const handleSearchSubmit = (data) => {
+        dispatch(search(data));
+        navigate("/search-results", { replace: true });
     };
     return (
         <div className="flex w-1/3 sm:w-full mx-2 justify-end">
@@ -29,6 +39,7 @@ export default function SearchBox() {
                         ? " w-full md:inline-block hidden sm:inline-block lg:inline-block"
                         : "w-full md:inline-block lg:inline-block "
                 }
+                onSubmit={handleSubmit(handleSearchSubmit)}
             >
                 <label
                     htmlFor="default-search"
@@ -40,8 +51,10 @@ export default function SearchBox() {
                     <input
                         type="search"
                         id="default-search"
+                        name="search-string"
                         className="block px-1 sm:py-2 py-1 md:px-4 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:border-primaryYellow dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  dark:focus:border-primaryYellow  focus-visible:border-border-primaryYellow focus-visible:outline-0"
                         placeholder="Search..."
+                        {...register("searchString")}
                         required
                     />
                     <button
