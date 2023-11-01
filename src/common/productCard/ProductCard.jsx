@@ -18,7 +18,7 @@ export default function ProductCard(props) {
 
     const handleAddToCart = (id, email) => {
         toggleLoading(id);
-        dispatch(addProductToCart(id, email, navigate));
+        dispatch(addProductToCart(id, email, navigate, setCardLoading));
     };
 
     const toggleLoading = (cardId) => {

@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import LoadingOverlay from "../../common/loadingOverlay/LoadingOverlay";
+import Spinner from "../../common/spinners/Spinner";
 import {
     clearCart,
     quantityMinus,
     quantityPlus,
     removeFromCart,
 } from "../../redux/actions/cartActions";
-import { Link } from "react-router-dom";
 import { addOrder } from "../../redux/actions/orderAction";
-import Spinner from "../../common/spinners/Spinner";
-import LoadingOverlay from "../../common/loadingOverlay/LoadingOverlay";
-import Swal from "sweetalert2";
 
 export default function Cart() {
     const cart = useSelector((state) => state.cart.cart);
@@ -24,6 +24,10 @@ export default function Cart() {
 
     useEffect(() => {
         const getPrice = () => {
+            // const price = localCart.reduce((acc, product) => {
+            //     return product.price * product.qty;
+            // }, 0);
+            
             let price = 0;
 
             for (const pd of localCart) {

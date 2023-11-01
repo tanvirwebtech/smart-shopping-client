@@ -1,6 +1,6 @@
 import React from "react";
-import ProductSlider from "../../common/productSlider/ProductSlider";
 import { useSelector } from "react-redux";
+import ProductSlider from "../../common/productSlider/ProductSlider";
 import Spinner from "../../common/spinners/Spinner";
 
 export default function Shop() {

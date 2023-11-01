@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import RegisterModal from "./RegisterModal";
 import { useDispatch, useSelector } from "react-redux";
-
-import { googleSignIn, loginWithEmail } from "../../redux/actions/authActions";
+import RegisterModal from "./RegisterModal";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { loginWithEmail } from "../../redux/actions/authActions";
 import Spinner from "./../../common/spinners/Spinner";
 
 export default function Login() {

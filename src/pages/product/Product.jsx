@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { IoIosArrowForward } from "react-icons/io";
 import { FaCartPlus, FaStar } from "react-icons/fa";
+import { IoIosArrowForward } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import ViewCartBtn from "../../common/buttons/ViewCartBtn";
 import useAddToCart from "../../hooks/useAddToCart";
 import Pylm from "./../../common/productYouMayLike.js/Pylm";
-import ViewCartBtn from "../../common/buttons/ViewCartBtn";
 
 export default function Product() {
     const products = useSelector((state) => state.products);

@@ -1,10 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import EditProfileModal from "./EditProfileModal";
-import { useState } from "react";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import React, { useState } from "react";
 import { FaUserEdit } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import Spinner from "./../../common/spinners/Spinner";
+import EditProfileModal from "./EditProfileModal";
 
 const Profile = () => {
     const authState = useSelector((state) => state.authState);

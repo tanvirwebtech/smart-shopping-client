@@ -1,15 +1,14 @@
+import axios from "axios";
 import {
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signInWithPopup,
     signInWithRedirect,
     signOut,
-    updateProfile,
+    updateProfile
 } from "firebase/auth";
-import auth from "../../firebase/init.firebase";
 import Swal from "sweetalert2";
-import axios from "axios";
+import auth from "../../firebase/init.firebase";
 
 // const router = createBrowserRouter(routes, { basename: "/" });
 

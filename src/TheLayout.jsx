@@ -1,27 +1,26 @@
-import React from "react";
+import React, { Suspense } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Footer from "./common/footer/Footer";
 import Header from "./common/header/Header";
-import { Routes, Route, Navigate } from "react-router-dom";
-import Home from "./pages/home/Home";
-import { Suspense } from "react";
-import PrivateRoute from "./routes/privateRoute/PrivateRoute";
-import Checkout from "./pages/checkout/Checkout";
 import Spinner from "./common/spinners/Spinner";
-import TermsAndConditions from "./pages/termsAndConditions/TermsAndConditions";
-import AdminRoute from "./routes/adminRoute/AdminRoute";
-import Dashboard from "./pages/admin/dashboard/Dashboard";
 import AddProduct from "./pages/admin/addProduct/AddProduct";
+import Dashboard from "./pages/admin/dashboard/Dashboard";
 import ManageProduct from "./pages/admin/manageProduct/ManageProduct";
 import ManageUsers from "./pages/admin/manageUsers/ManageUsers";
+import Checkout from "./pages/checkout/Checkout";
+import Home from "./pages/home/Home";
 import SearchResults from "./pages/searchResults/SearchResults";
+import TermsAndConditions from "./pages/termsAndConditions/TermsAndConditions";
+import AdminRoute from "./routes/adminRoute/AdminRoute";
+import PrivateRoute from "./routes/privateRoute/PrivateRoute";
 
 const About = React.lazy(() => import("./pages/about/About"));
-const Shop = React.lazy(() => import("./pages/shop/Shop"));
-const Login = React.lazy(() => import("./pages/login/Login"));
 const Cart = React.lazy(() => import("./pages/cart/Cart"));
-const Product = React.lazy(() => import("./pages/product/Product"));
 const Category = React.lazy(() => import("./pages/category/Category"));
+const Login = React.lazy(() => import("./pages/login/Login"));
+const Product = React.lazy(() => import("./pages/product/Product"));
 const Profile = React.lazy(() => import("./pages/profile/Profile"));
+const Shop = React.lazy(() => import("./pages/shop/Shop"));
 
 export default function TheLayout() {
     return (
