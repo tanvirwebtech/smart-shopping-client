@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import dealbg from "../../assets/images/deal/bg-1.jpg";
-import { Link } from "react-router-dom";
-import ProductCard from "./../../common/productCard/ProductCard";
-import { useSelector } from "react-redux";
 import { BsArrowRight } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import dealbg from "../../../assets/images/deal/bg-1.jpg";
+import ProductCard from "../../../common/productCard/ProductCard";
 
 const Deals = () => {
     const products = useSelector((state) => state.products);

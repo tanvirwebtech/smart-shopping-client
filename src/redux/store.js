@@ -9,6 +9,7 @@ import localStorageReducer from "./reducers/localStorageReducer";
 import orderReducer from "./reducers/orderReducer";
 import profileReducer from "./reducers/profileReducer";
 import searchReducer from "./reducers/searchReducer";
+import paymentReducer from "./reducers/paymentReducer";
 
 const rootReducer = combineReducers({
     products: productReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     order: orderReducer,
     profile: profileReducer,
     search: searchReducer,
+    payment: paymentReducer,
 });
 // const persistedState = localStorage.getItem("pyml")
 //     ? JSON.parse(localStorage.getItem("pyml"))

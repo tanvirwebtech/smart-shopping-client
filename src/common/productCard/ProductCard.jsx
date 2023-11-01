@@ -1,12 +1,13 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { FaCartPlus, FaHeart, FaStar } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import useAddToCart from "../../hooks/useAddToCart";
 import { addToPYML } from "../../redux/actions/pymlActions";
 import ViewCartBtn from "../buttons/ViewCartBtn";
-import { FaCartPlus, FaHeart, FaStar } from "react-icons/fa";
-import Spinner from "../spinners/Spinner";
-import useAddToCart from "../../hooks/useAddToCart";
+
 export default function ProductCard(props) {
+    const [cardLoading, setCardLoading] = useState({});
     const { product } = props;
     const dispatch = useDispatch();
     const cartProduct = useSelector((state) => state.cart.cart);
@@ -16,10 +17,19 @@ export default function ProductCard(props) {
     const { addProductToCart } = useAddToCart();
 
     const handleAddToCart = (id, email) => {
+        toggleLoading(id);
         dispatch(addProductToCart(id, email, navigate));
     };
+
+    const toggleLoading = (cardId) => {
+        setCardLoading((prevState) => ({
+            ...prevState,
+            [cardId]: !prevState.cardId,
+        }));
+    };
+
     return (
-        <div className="product-card  h-full border">
+        <div className="product-card h-full border">
             <div
                 className="product-wrapper h-full"
                 onClick={() => addToPYML(product?._id)}
@@ -74,29 +84,18 @@ export default function ProductCard(props) {
                                             user?.email
                                         )
                                     }
+                                    disabled={cardLoading[product?._id]}
                                 >
-                                    <div className="flex items-center">
-                                        Add to cart{" "}
-                                        <FaCartPlus className="ml-2" />
-                                    </div>
+                                    {cardLoading[product?._id] ? (
+                                        "Loading..."
+                                    ) : (
+                                        <div className="flex items-center">
+                                            Add to cart{" "}
+                                            <FaCartPlus className="ml-2" />
+                                        </div>
+                                    )}
                                 </button>
                             )}
-                            {/* {cartProduct?.find((pd) => pd === product?._id) ? (
-                                <Link to="/cart">
-                                    <button className="py-2 px-4 bg-primaryYellow text-gray-900 border-0 text-sm rounded-sm">
-                                        View Cart
-                                    </button>
-                                </Link>
-                            ) : (
-                                <button
-                                    className="cart-btn"
-                                    onClick={() =>
-                                        dispatch(addToCart(product._id))
-                                    }
-                                >
-                                    Add to cart
-                                </button>
-                            )} */}
                         </div>
                         <div className="add-to-wishlist-btn">
                             <button className="cart-btn">

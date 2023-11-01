@@ -1,5 +1,5 @@
 import React from "react";
-import promBanner from "../../assets/images/bg-1.jpg";
+import promBanner from "../../../assets/images/bg-1.jpg";
 
 const promBannerStyle = {
     backgroundImage: `url(${promBanner})`,

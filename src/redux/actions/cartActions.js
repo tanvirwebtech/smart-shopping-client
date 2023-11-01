@@ -15,11 +15,17 @@ export const addToCart = (productID, email) => {
 
 export const getCartProducts = (payload) => {
     return async (dispatch) => {
+        dispatch({
+            type: "CART_LOADING_TRUE",
+        });
         const res = await axios.get(`/getCart/${payload}`);
         const data = await res.data;
         dispatch({
             type: "CART",
             payload: data,
+        });
+        dispatch({
+            type: "CART_LOADING_FALSE",
         });
     };
 };
@@ -40,6 +46,7 @@ export const getCartProducts = (payload) => {
 
 export function removeFromCart(productID, email) {
     return (dispatch) => {
+        dispatch({ type: "CART_LOADING_TRUE" });
         const cart = { id: productID, del: true };
         axios.put(`/cart/${email}`, cart).then((res) => {
             if (res.data.modifiedCount > 0) {

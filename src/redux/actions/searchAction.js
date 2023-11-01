@@ -19,6 +19,8 @@ const search = ({ searchString }) => {
         });
         if (result.length > 0) {
             dispatch({ type: "SEARCH_SUCCESS", payload: result });
+        } else {
+            dispatch({ type: "SEARCH_FAILED", payload: result });
         }
     };
 };

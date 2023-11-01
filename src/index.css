@@ -38,7 +38,7 @@ span {
 }
 
 .cart-btn {
-    @apply capitalize py-1 px-2 sm:px-2 sm:py-1 bg-siteGray-400 text-white border-0 sm:text-sm  text-xs font-medium rounded-sm hover:bg-primaryYellow duration-300;
+    @apply capitalize py-1 px-2 sm:px-2 sm:py-1 bg-siteGray-400 text-white border-0 sm:text-sm  text-xs font-medium rounded-sm hover:bg-primaryYellow duration-300 disabled:bg-slate-400 shadow-sm disabled:text-white;
 }
 
 .react-tabs__tab--selected {

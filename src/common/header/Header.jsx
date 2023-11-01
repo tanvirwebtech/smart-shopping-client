@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import SearchBox from "./headerComponents/SearchBox";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/actions/authActions";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo3.png";
+import { logout } from "../../redux/actions/authActions";
+import SearchBox from "./headerComponents/SearchBox";
 
 export default function Header() {
     const [navToggle, setNavToggle] = useState(false);

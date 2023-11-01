@@ -1,13 +1,20 @@
+import { Elements } from "@stripe/react-stripe-js";
 import React from "react";
 import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import CheckoutForm from "./CheckoutForm";
+import { loadStripe } from "@stripe/stripe-js";
 
 export default function Checkout() {
     const profile = useSelector((state) => state.profile);
-    const order = useSelector((state) => state.order);
+    const order = useSelector((state) => state.order.order);
     const [shippingFee, setShippingFee] = useState(0);
+
+    const stripePromise = loadStripe(
+        "pk_test_51NomvgBcH4c1CmxuwXF9MtPUaSDbkxygl0H2TaaK2o0rOpSxPy3ErIyQl7hngQPOIc4z3AMogDpqsP4GOzyLrPJC00ZYFFDkA7"
+    );
 
     return (
         <div className="container">
@@ -26,14 +33,16 @@ export default function Checkout() {
                                     User Info
                                 </h2>
                                 <div className="text-xs sm:text-sm md:text-base">
-                                    <h3>Name: {profile?.name}</h3>
+                                    <p>Name: {profile?.name}</p>
                                     <p>Email: {profile?.email}</p>
                                     <p>Phone: {profile?.phone}</p>
                                     <p>
-                                        Shipping Address: {profile.addresses[0]}
+                                        Shipping Address:{" "}
+                                        {profile.shippingAddress}
                                     </p>
                                     <p>
-                                        Billing Address: {profile.addresses[1]}
+                                        Billing Address:{" "}
+                                        {profile.billingAddress}
                                     </p>
                                     <br />
                                     <p className="italic text-red-500 font-medium">
@@ -144,45 +153,37 @@ export default function Checkout() {
                                                       <span>{pd.qty}</span>
                                                   </div>
                                                   <div className="unitPrice w-1/3 text-xs md:text-base text-right">
-                                                      <span>{pd.price}</span>
+                                                      <span>${pd.price}</span>
                                                   </div>
                                               </div>
                                           ))
                                         : ""}
-
-                                    {/* <div className="flex justify-between mb-2">
-                                <span>Product 2</span>
-                                <span>$20</span>
-                            </div>
-                            <div className="flex justify-between mb-2">
-                                <span>Product 3</span>
-                                <span>$15</span> */}
                                 </div>
                                 {/* Total Price */}
                                 <div className="flex text-sm md:text-base justify-between border-t pt-2">
                                     <span>Sub Total</span>
-                                    <span>${order?.subtotal}</span>
+                                    <span className="">${order?.subtotal}</span>
                                 </div>
                                 {/* Shipping Fee */}
                                 <div className="flex text-sm md:text-base justify-between mt-2">
                                     <span>Shipping Fee</span>
-                                    <span>${shippingFee}</span>
+                                    <span className="">${shippingFee}</span>
                                 </div>
                                 {/* Total */}
                                 <div className="flex text-sm md:text-base justify-between  mt-2">
                                     <span className="font-bold">Pay Total</span>
-                                    <span className="font-bold">
+                                    <span className="font-bold text-green-600">
                                         {" "}
-                                        {order?.subtotal + shippingFee}
+                                        ${order?.subtotal + shippingFee}
                                     </span>
                                 </div>
                                 <hr />
-                                <div className="flex justify-between items-end mt-2">
+                                <div className=" mt-2">
                                     <div className="payment-methods text-sm md:text-base">
                                         <h4 className="font-bold">
                                             Payment methods
                                         </h4>
-                                        <form>
+                                        {/* <form>
                                             <div className="input">
                                                 <div
                                                     className="text-xs md:text-base
@@ -223,13 +224,18 @@ export default function Checkout() {
                                                     </label>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form> */}
                                     </div>
-                                    <div className="">
+                                    {/* <div className="">
                                         <button className="cart-btn">
                                             Confirm Order
                                         </button>
-                                    </div>
+                                    </div> */}
+                                    <Elements stripe={stripePromise}>
+                                        <CheckoutForm
+                                            price={order?.subtotal}
+                                        ></CheckoutForm>
+                                    </Elements>
                                     {/* // */}
 
                                     {/* // */}

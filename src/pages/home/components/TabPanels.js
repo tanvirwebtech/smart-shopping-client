@@ -1,8 +1,8 @@
 import React from "react";
-import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import ProductSlider from "./../../common/productSlider/ProductSlider";
 import { useSelector } from "react-redux";
-import Spinner from "../../common/spinners/Spinner";
+import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
+import ProductSlider from "../../../common/productSlider/ProductSlider";
+import Spinner from "../../../common/spinners/Spinner";
 
 const TabPanels = () => {
     const products = useSelector((state) => state.products);
