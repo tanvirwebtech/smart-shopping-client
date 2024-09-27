@@ -18,7 +18,7 @@ import Dashboard from "./pages/admin/dashboard/Dashboard";
 
 function App() {
     // AXIOS DEFAULTS
-    axios.defaults.baseURL = "https://smart-server-pi.vercel.app"; // https://smart-server-pi.vercel.app
+    axios.defaults.baseURL = "http://localhost:5000"; // https://smart-server-pi.vercel.app
     axios.defaults.withCredentials = true;
 
     const dispatch = useDispatch();

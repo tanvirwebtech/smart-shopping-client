@@ -1,11 +1,13 @@
 import axios from "axios";
 import {
+    FacebookAuthProvider,
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signInWithRedirect,
+    signInWithPopup,
     signOut,
-    updateProfile
+    sendPasswordResetEmail,
+    updateProfile,
 } from "firebase/auth";
 import Swal from "sweetalert2";
 import auth from "../../firebase/init.firebase";
@@ -54,11 +56,18 @@ export const registerUser = (userData) => {
                 );
             })
             .catch((error) => {
+                let errMsg = "";
+                if (
+                    error.message ===
+                    "Firebase: Error (auth/email-already-in-use)."
+                ) {
+                    errMsg = "Account already exists with this email.";
+                }
                 dispatch({
                     type: "REG_FAIL",
                     payload: error.message,
                 });
-                Swal.fire("Failed!", "Registration unsuccessful!", "error");
+                Swal.fire("Failed!", errMsg, "error");
             });
     };
 };
@@ -92,17 +101,73 @@ export const loginWithEmail = (userData, location, navigate) => {
     };
 };
 
+// Forgot Password / Reset Password
+export const resetPassword = ({ email }) => {
+    console.log(email);
+    return (dispatch) => {
+        console.log(email);
+        sendPasswordResetEmail(auth, email)
+            .then(() => {
+                Swal.fire(
+                    "Success!",
+                    "Check your email. We have just sent a password reset link!",
+                    "success"
+                );
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(error.message);
+            });
+    };
+};
+
 // Sign in with Google
 
 export const googleSignIn = (location, navigate) => {
     const provider = new GoogleAuthProvider();
     return (dispatch) => {
         const from = location.state?.from?.pathname;
-        signInWithRedirect(auth, provider)
+        signInWithPopup(auth, provider)
             .then((result) => {
                 axios
                     .post("/registerUser", result.user)
                     .then(function (response) {
+                        console.log(response);
+                        dispatch({
+                            type: "LOGIN_SUCCESS",
+                            payload: result.user,
+                        });
+                        navigate(from, { replace: true });
+                        Swal.fire(
+                            "Success!",
+                            "You successfully logged in!",
+                            "success"
+                        );
+                    });
+            })
+            .catch((error) => {
+                dispatch({
+                    type: "LOGIN_FAILED",
+                    payload: error.message,
+                });
+                Swal.fire("Failed!", "Login Unsuccessful. Try again!", "error");
+            })
+            .finally({});
+    };
+};
+
+export const facebookSignIn = (location, navigate) => {
+    const provider = new FacebookAuthProvider();
+    return (dispatch) => {
+        const from = location.state?.from?.pathname;
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                console.log(result);
+                axios
+                    .post("/registerUser", result.user)
+                    .then(function (response) {
+                        console.log(response);
                         dispatch({
                             type: "LOGIN_SUCCESS",
                             payload: result.user,

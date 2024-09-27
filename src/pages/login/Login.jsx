@@ -3,12 +3,20 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import RegisterModal from "./RegisterModal";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { loginWithEmail } from "../../redux/actions/authActions";
+import {
+    loginWithEmail,
+    googleSignIn,
+    facebookSignIn,
+} from "../../redux/actions/authActions";
 import Spinner from "./../../common/spinners/Spinner";
+import { FaGoogle } from "react-icons/fa";
+import { FaFacebookSquare } from "react-icons/fa";
+import ResetPassModal from "./ResetPassModal";
 
 export default function Login() {
     const authState = useSelector((state) => state.authState);
     const [modalOpen, setModalOpen] = useState(false);
+    const [passResetModal, setPassResetModal] = useState(false);
     const dispatch = useDispatch();
     if (authState.user) {
         <Navigate to="/" replace={true} />;
@@ -28,10 +36,16 @@ export default function Login() {
         dispatch(loginWithEmail(data, location, navigate)); //data: {email, loginPassword}
         reset();
     };
+    const handalePassReset = () => {
+        setPassResetModal(!passResetModal);
+    };
 
     // Google Login
     const handleGoogleLogin = () => {
-        // dispatch(googleSignIn(location, navigate));
+        dispatch(googleSignIn(location, navigate));
+    };
+    const handleFacebookLogin = () => {
+        dispatch(facebookSignIn(location, navigate));
     };
 
     // Register Modal Toggle
@@ -65,6 +79,10 @@ export default function Login() {
                 <div className="login-methods md:p-8 md:mt-8 p-2 mt-4 border bg-slate-300 dark:bg-slate-700 md:w-8/12 mx-auto">
                     <div className="grid grid-cols-2 gap-4">
                         <div className="login-form">
+                            <ResetPassModal
+                                modalToggle={passResetModal}
+                                setModalOpen={handalePassReset}
+                            ></ResetPassModal>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <div className="mb-2 md:mb-6">
                                     <label
@@ -108,6 +126,16 @@ export default function Login() {
                                         </span>
                                     )}
                                 </div>
+                                <div className="mb-2 md:mb-6">
+                                    <button
+                                        type="button"
+                                        onClick={handalePassReset}
+                                        data-modal-toggle="pass-reset-modal"
+                                    >
+                                        Forgot Password?
+                                    </button>
+                                </div>
+
                                 {authState.loading ? (
                                     <Spinner></Spinner>
                                 ) : (
@@ -127,14 +155,19 @@ export default function Login() {
                             <div className="login-methods-wrap mt-4 md:mt-8">
                                 <div className="google-login">
                                     <button
-                                        className="bg-siteGray-200 text-white border-0 rounded-sm py-1 px-2 md:py-4 md:px-4 hover:bg-primaryYellow hover:text-siteGray-400 duration-300 w-full text-xs sm:text-sm md:text-base"
+                                        className="flex items-center gap-4 justify-center bg-siteGray-200 text-white border-0 rounded-sm py-1 px-2 md:py-4 md:px-4 hover:bg-primaryYellow hover:text-siteGray-400 duration-300 w-full text-xs sm:text-sm md:text-base"
                                         onClick={handleGoogleLogin}
                                     >
-                                        Google
+                                        <FaGoogle />
+                                        <span>Google</span>
                                     </button>
                                 </div>
                                 <div className="facebook-login mt-2 md:mt-4">
-                                    <button className="bg-siteGray-200 text-white border-0 rounded-sm py-1 px-2 md:py-4 md:px-4  hover:bg-primaryYellow hover:text-siteGray-400 duration-300 w-full text-xs sm:text-sm md:text-base">
+                                    <button
+                                        className="flex items-center gap-4 justify-center bg-siteGray-200 text-white border-0 rounded-sm py-1 px-2 md:py-4 md:px-4  hover:bg-primaryYellow hover:text-siteGray-400 duration-300 w-full text-xs sm:text-sm md:text-base"
+                                        onClick={handleFacebookLogin}
+                                    >
+                                        <FaFacebookSquare />
                                         Facebook
                                     </button>
                                 </div>

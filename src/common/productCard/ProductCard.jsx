@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaCartPlus, FaHeart, FaStar } from "react-icons/fa";
+import { FaCartPlus, FaHeart, FaStar, FaStarHalf } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import useAddToCart from "../../hooks/useAddToCart";
@@ -54,12 +54,12 @@ export default function ProductCard(props) {
                             </Link>
                         </div>
                         <div className="price-rating mt-2 ">
-                            <div className="rating text-xs sm:text-sm flex py-2 text-primaryYellow items-center">
-                                <FaStar></FaStar>
-                                <FaStar></FaStar>
-                                <FaStar></FaStar>
-                                <FaStar></FaStar>
-                                <FaStar></FaStar>
+                            <div className="rating text-xs sm:text-sm flex py-2 text-primaryYellow items-center ">
+                                <FaStar className="stroke-primaryYellow"></FaStar>
+                                <FaStar className="stroke-primaryYellow"></FaStar>
+                                <FaStar className="stroke-primaryYellow"></FaStar>
+                                <FaStar className="stroke-primaryYellow"></FaStar>
+                                <FaStarHalf className="stroke-1 stroke-primaryYellow"></FaStarHalf>
                                 <span>({product?.maxOrder} reviews)</span>
                             </div>
                             <div className="price text-green-700 font-medium">

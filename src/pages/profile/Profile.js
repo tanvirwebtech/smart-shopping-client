@@ -41,7 +41,7 @@ const Profile = () => {
                                 className="lg:w-24 lg:h-24 w-16 h-16 rounded-full mr-4"
                                 src={
                                     user?.photoURL
-                                        ? `${user?.photoURL}`
+                                        ? `${user.photoURL}`
                                         : "https://via.placeholder.com/150"
                                 }
                                 alt="Profile"
