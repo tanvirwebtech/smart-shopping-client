@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo3.png";
 import { logout } from "../../redux/actions/authActions";
 import SearchBox from "./headerComponents/SearchBox";
@@ -13,7 +13,7 @@ export default function Header() {
     const cart = useSelector((state) => state.cart.cart);
 
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
     const handleNavToggle = () => {
         setNavToggle(!navToggle);
     };
@@ -28,6 +28,9 @@ export default function Header() {
 
     const handleUserOption = () => {
         setUserOption(!userOption);
+        if (!authState.user) {
+            navigate("/login");
+        }
     };
     useEffect(() => {
         return () => {
@@ -136,7 +139,7 @@ export default function Header() {
                                                 type="button"
                                                 className="inline-block py-2 px-4 my-1  hover:text-primaryYellow hover:border-primaryYellow duration-300 cursor-pointer border rounded-md "
                                                 onClick={() =>
-                                                    dispatch(logout())
+                                                    dispatch(logout(navigate))
                                                 }
                                             >
                                                 Logout

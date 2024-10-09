@@ -115,6 +115,7 @@ export const resetPassword = ({ email }) => {
                 );
             })
             .catch((error) => {
+                Swal.fire("Failed", "somtheing went wrong");
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(error.message);
@@ -192,14 +193,16 @@ export const facebookSignIn = (location, navigate) => {
 };
 
 // LOG OUT
-export const logout = () => {
+export const logout = (navigate) => {
     return (dispatch) => {
         signOut(auth)
             .then(() => {
                 dispatch({
                     type: "LOGOUT",
                 });
+
                 Swal.fire("Success!", "Successfully logged out!", "success");
+                navigate("/");
             })
             .catch((error) => {
                 dispatch({

@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 import { FaCartPlus, FaHeart, FaStar, FaStarHalf } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import useAddToCart from "../../hooks/useAddToCart";
+import useCardLoading from "../../hooks/useCardLoading";
 import { addToPYML } from "../../redux/actions/pymlActions";
 import ViewCartBtn from "../buttons/ViewCartBtn";
 
 export default function ProductCard(props) {
-    const [cardLoading, setCardLoading] = useState({});
     const { product } = props;
     const dispatch = useDispatch();
     const cartProduct = useSelector((state) => state.cart.cart);
@@ -15,17 +15,15 @@ export default function ProductCard(props) {
 
     const navigate = useNavigate();
     const { addProductToCart } = useAddToCart();
+    const { cardLoading, toggleLoading } = useCardLoading();
 
     const handleAddToCart = (id, email) => {
-        toggleLoading(id);
-        dispatch(addProductToCart(id, email, navigate, setCardLoading));
-    };
-
-    const toggleLoading = (cardId) => {
-        setCardLoading((prevState) => ({
-            ...prevState,
-            [cardId]: !prevState.cardId,
-        }));
+        if (!email) {
+            dispatch(addProductToCart(id, email, navigate));
+        } else {
+            toggleLoading(id);
+            dispatch(addProductToCart(id, email, navigate));
+        }
     };
 
     return (
