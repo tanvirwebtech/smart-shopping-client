@@ -131,6 +131,8 @@ export default function Login() {
                                         type="button"
                                         onClick={handalePassReset}
                                         data-modal-toggle="pass-reset-modal"
+                                        className="text-primaryYellow"
+                                        title="click here to reset your password!"
                                     >
                                         Forgot Password?
                                     </button>

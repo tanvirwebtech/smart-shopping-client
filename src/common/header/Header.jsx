@@ -114,7 +114,7 @@ export default function Header() {
                                             : "hidden absolute right-4 top-8"
                                     }`}
                                 >
-                                    <div className="text-center p-2">
+                                    <div className="text-left p-2">
                                         <p>
                                             <small>Name:{profile?.name}</small>
                                         </p>
